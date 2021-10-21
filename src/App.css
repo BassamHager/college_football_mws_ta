@@ -1,0 +1,39 @@
+:root {
+  --main-color: darkblue;
+  --theme-color: cornflowerblue;
+  --secondary-color: plum;
+  --dark-secondary-color: purple;
+  --darkener-color: rgba(0, 0, 0, 0.5);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+  font-family:  monospace, sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #333;
+  font-size: 1.6rem; /* 16px */
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* utils */
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
