@@ -1,0 +1,4 @@
+.login_container {
+  background: var(--secondary-color);
+  min-height: 100vh;
+}

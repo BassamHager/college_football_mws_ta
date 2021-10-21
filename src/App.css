@@ -1,7 +1,7 @@
 :root {
-  --main-color: darkblue;
-  --theme-color: cornflowerblue;
-  --secondary-color: plum;
+  --main-color: #5680e9;
+  --theme-color: #84ceeb;
+  --secondary-color: #8860d0;
   --dark-secondary-color: purple;
   --darkener-color: rgba(0, 0, 0, 0.5);
 }
@@ -14,7 +14,7 @@
 
 html {
   font-size: 62.5%;
-  font-family:  monospace, sans-serif;
+  font-family: monospace, sans-serif;
   scroll-behavior: smooth;
 }
 
