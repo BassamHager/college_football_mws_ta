@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./LoginPage.css";
 import { useHistory } from "react-router-dom";
 
@@ -8,11 +8,16 @@ import Input from "../../components/shared/UI/input/Input";
 // constants
 import { LOGIN_PASSWORD } from "../../context/shared/constants";
 
+// context
+import { AuthContext } from "../../context/auth/AuthContext";
+
 const LoginPage = () => {
   // internal state
   const inputsNumbers = [1, 2, 3, 4, 5, 6];
   const [inputValues, setInputValues] = useState([]);
-  const [isCorrectPassword, setIsCorrectPassword] = useState(false);
+
+  // context
+  const { isAuthorized, setIsAuthorized } = useContext(AuthContext);
 
   // history
   const history = useHistory();
@@ -20,7 +25,7 @@ const LoginPage = () => {
   // helper function checks password & redirect to homepage
   const checkPassword = () => {
     try {
-      if (inputValues.join("") === LOGIN_PASSWORD) setIsCorrectPassword(true);
+      if (inputValues.join("") === LOGIN_PASSWORD) setIsAuthorized(true);
 
       // else show danger alert
     } catch (error) {
@@ -29,8 +34,8 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    isCorrectPassword && history.push("/");
-  }, [isCorrectPassword, history]);
+    isAuthorized && history.push("/");
+  }, [isAuthorized, history]);
 
   return (
     <div className="background">
@@ -39,7 +44,9 @@ const LoginPage = () => {
           {/* logo */}
           <div className="logo_container">
             <div>
-              <i className="far fa-futbol"></i> <h2>Log in your account</h2>
+              <i className="far fa-futbol"></i>
+              <h2>College Football</h2>
+              <p>Log into your account</p>
             </div>
           </div>
 
