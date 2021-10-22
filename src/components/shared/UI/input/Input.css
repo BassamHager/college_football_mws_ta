@@ -1,0 +1,23 @@
+input {
+  height: 6rem;
+  width: min(10vh, 5vw);
+  font-size: 3rem;
+  text-align: center;
+  border-radius: 6px;
+  border: solid 2px #bbb;
+  font-weight: 100;
+}
+
+input:focus,
+input:active {
+  outline: none;
+  border: solid 2px var(--main-color);
+}
+
+input:hover {
+  border-color: var(--darkener-color);
+}
+
+.danger {
+  border: 2px solid maroon !important;
+}

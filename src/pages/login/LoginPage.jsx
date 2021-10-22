@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 // components
 import Input from "../../components/shared/UI/input/Input";
+import Alert from "../../components/alert/Alert";
 
 // constants
 import { LOGIN_PASSWORD } from "../../context/shared/constants";
@@ -17,7 +18,8 @@ const LoginPage = () => {
   const [inputValues, setInputValues] = useState([]);
 
   // context
-  const { isAuthorized, setIsAuthorized } = useContext(AuthContext);
+  const { isAuthorized, setIsAuthorized, isWrongPW, setIsWrongPW } =
+    useContext(AuthContext);
 
   // history
   const history = useHistory();
@@ -25,14 +27,33 @@ const LoginPage = () => {
   // helper function checks password & redirect to homepage
   const checkPassword = () => {
     try {
-      if (inputValues.join("") === LOGIN_PASSWORD) setIsAuthorized(true);
+      // if correct: authorize
+      if (inputValues.join("") === LOGIN_PASSWORD) {
+        setIsAuthorized(true); // triggers useEffect
+      }
+      // else: display alert
+      else {
+        // update pw status
+        setIsWrongPW(true);
 
-      // else show danger alert
+        // get inputs, add danger class & reset value of each
+        document.querySelectorAll(`input`).forEach((inp) => {
+          inp.classList.add("danger");
+          inp.value = "";
+        });
+
+        // reset inputValues state
+        setInputValues([]);
+
+        // reset focus to first input
+        document.querySelector(`input[name=input-1]`).focus();
+      }
     } catch (error) {
       console.error(error);
     }
   };
 
+  // watch isAuthorized to redirect to homepage when it's true
   useEffect(() => {
     isAuthorized && history.push("/");
   }, [isAuthorized, history]);
@@ -65,6 +86,9 @@ const LoginPage = () => {
                 />
               ))}
             </div>
+
+            {/* error */}
+            {isWrongPW && <Alert />}
           </div>
         </div>
       </div>
