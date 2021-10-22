@@ -8,7 +8,7 @@ const HomePage = () => {
 
   // force redirect to login page
   useEffect(() => {
-    history.push("/login");
+    // history.push("/login");
   }, []); // eslint-disable-line
 
   return <div className="home">Home</div>;
