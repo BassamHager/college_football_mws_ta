@@ -3,7 +3,7 @@
   padding: 0.5rem 1.5rem;
   border: 1px solid var(--darkener-color);
   border-radius: 4px;
-  background: var(--darkener-color);
+  background: var(--main-color);
   color: white;
   cursor: pointer;
   margin-right: 1rem;
@@ -17,10 +17,11 @@
 
 .button:hover,
 .button:active {
-  background: var(--secondary-color);
+  background: var(--vivid-color);
   border-color: var(--dark-secondary-color);
   transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
+  transform: scale(0.95);
 }
 
 .button--inverse {

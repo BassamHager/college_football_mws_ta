@@ -1,0 +1,32 @@
+.card {
+  width: 250px;
+  height: 250px;
+  border-radius: 50px;
+  overflow: hidden;
+  box-shadow: 0 2.5px 5px var(--darkener-color);
+  background: #fff;
+  /* background: var(--theme-color); */
+  display: grid;
+  place-items: center;
+  margin: 1rem;
+  color: var(--main-color);
+}
+
+.card:hover {
+  cursor: pointer;
+  transform: scale(0.95);
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
+  /* background: var(--secondary-color); */
+  border: 5px outset var(--main-color);
+  font-size: 2rem;
+}
+
+.card img {
+  width: 25%;
+}
+
+.card:hover img {
+  width: 50%;
+  transition: all 0.3s ease-in-out;
+}

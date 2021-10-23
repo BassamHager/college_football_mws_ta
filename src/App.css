@@ -4,6 +4,13 @@
   --secondary-color: #8860d0;
   --dark-secondary-color: purple;
   --darkener-color: rgba(0, 0, 0, 0.5);
+  --vivid-color: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 }
 
 * {
@@ -36,6 +43,5 @@ button {
 .container {
   max-width: 1200px;
   margin: auto;
-  border: 1px solid black;
   position: inherit;
 }
