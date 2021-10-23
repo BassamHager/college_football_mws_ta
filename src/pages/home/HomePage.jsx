@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import "./HomePage.css";
 import { useHistory } from "react-router-dom";
 
@@ -8,7 +8,8 @@ import { TeamsContext } from "../../context/teams/teamsContext";
 
 // components
 import Navbar from "../../components/navbar/Navbar";
-import TeamCard from "../../components/teamCard/TeamCard";
+import TeamsGrid from "../../components/teamsGrid/TeamsGrid";
+import Pagination from "../../components/pagination/Pagination";
 
 const HomePage = () => {
   // history
@@ -17,6 +18,16 @@ const HomePage = () => {
   // context
   const { isAuthorized } = useContext(AuthContext);
   const { getTeams, teams } = useContext(TeamsContext);
+
+  // internal state
+  const [currentPage, setCurrentPage] = useState(1);
+  const teamsPerPage = 12;
+  const lastIndexInPage = currentPage * teamsPerPage;
+  const firstIndexInPage = lastIndexInPage - teamsPerPage;
+  const currentTeamsDisplayed = teams.slice(firstIndexInPage, lastIndexInPage);
+
+  // change page
+  const paginate = useCallback((pageNumber) => setCurrentPage(pageNumber));
 
   // force redirect to login page
   useEffect(() => {
@@ -32,16 +43,14 @@ const HomePage = () => {
         <Navbar />
 
         {/* teams grid */}
-        <div className="teams--grid">
-          {teams.map(({ id, school, logos }) => (
-            <TeamCard
-              key={id}
-              id={id}
-              school={school}
-              logo={logos && logos[0]}
-            />
-          ))}
-        </div>
+        <TeamsGrid displayedTeams={currentTeamsDisplayed} />
+
+        {/* pagination */}
+        <Pagination
+          teamsPerPage={teamsPerPage}
+          totalTeams={teams.length}
+          paginate={paginate}
+        />
       </div>
     </div>
   );
