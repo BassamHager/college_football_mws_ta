@@ -1,0 +1,16 @@
+.navbar {
+  position: relative;
+  height: max(12vh, 200px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.button--logout {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50% !important;
+  padding: 1rem !important;
+  display: grid;
+  place-items: center;
+}

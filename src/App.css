@@ -36,4 +36,6 @@ button {
 .container {
   max-width: 1200px;
   margin: auto;
+  border: 1px solid black;
+  position: inherit;
 }

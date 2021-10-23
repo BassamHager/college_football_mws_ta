@@ -4,13 +4,3 @@
   min-height: 100vh;
   position: relative;
 }
-
-.button--logout {
-  position: absolute;
-  top: 5rem;
-  right: 5rem;
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50% !important;
-  padding: 1rem !important;
-}
