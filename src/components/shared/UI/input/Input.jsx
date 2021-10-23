@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import "./Input.css";
 
 // context
-import { AuthContext } from "../../../../context/auth/AuthContext";
+import { AuthContext } from "../../../../context/auth/authContext";
 
 const Input = ({ name, inputValues, setInputValues, checkPassword }) => {
   // restricted keys

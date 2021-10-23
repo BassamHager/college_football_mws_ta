@@ -10,7 +10,7 @@ import Alert from "../../components/alert/Alert";
 import { LOGIN_PASSWORD } from "../../context/shared/constants";
 
 // context
-import { AuthContext } from "../../context/auth/AuthContext";
+import { AuthContext } from "../../context/auth/authContext";
 
 const LoginPage = () => {
   // internal state
