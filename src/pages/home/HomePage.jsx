@@ -8,7 +8,10 @@ import { AuthContext } from "../../context/auth/AuthContext";
 import mocked from "../../context/mock/mockData.json";
 
 // hooks
-// import { useHttpClient } from "../../util/httpHook";
+import { useHttpClient } from "../../util/httpHook";
+
+// components
+import Button from "../../components/shared/UI/button/Button";
 
 const HomePage = () => {
   // history
@@ -18,7 +21,7 @@ const HomePage = () => {
   const { isAuthorized, setIsAuthorized } = useContext(AuthContext);
 
   // hooks
-  // const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   // fetch teams
   const fetchTeams = useCallback(async () => {
@@ -40,9 +43,9 @@ const HomePage = () => {
 
   return (
     <div className="home">
-      <button onClick={() => setIsAuthorized(false)} className="btn_logout">
+      <Button className="button--logout" onClick={() => setIsAuthorized(false)}>
         Logout <i className="fas fa-sign-out-alt"></i>
-      </button>
+      </Button>
     </div>
   );
 };
