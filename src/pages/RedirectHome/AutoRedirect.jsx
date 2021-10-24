@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useHistory } from "react-router-dom";
 
-const RedirectHome = () => {
+const AutoRedirect = () => {
   // history
   const history = useHistory();
 
@@ -12,4 +12,4 @@ const RedirectHome = () => {
   return "";
 };
 
-export default RedirectHome;
+export default AutoRedirect;

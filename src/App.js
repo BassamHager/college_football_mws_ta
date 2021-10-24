@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 // pages
 import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
-// import TeamDetails from "./pages/teamDetails/TeamDetailsPage";
-import RedirectHome from "./pages/RedirectHome/RedirectHome";
+import TeamDetails from "./pages/teamDetails/TeamDetailsPage";
+import RedirectHome from "./pages/RedirectHome/AutoRedirect";
 
 const App = () => (
   <div className="App">
@@ -13,7 +13,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route exact path="/login" component={LoginPage} />
-        {/* <Route exact path="/teamDetails" component={TeamDetails} /> */}
+        <Route exact path="/teamDetails/:id" component={TeamDetails} />
         <Route component={RedirectHome} />
       </Switch>
     </Router>
