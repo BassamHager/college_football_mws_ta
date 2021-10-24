@@ -1,26 +1,25 @@
-import { createContext, useCallback, useReducer } from "react";
-
+import { createContext, useCallback, useReducer, useState } from "react";
 // reducer
 import teamsReducer from "./teamsReducer";
-
 // types
 import { GET_TEAMS, START_LOADING } from "../shared/types";
-
 // context
 // import { GET_TEAMS_URL } from "../../context/shared/constants";
 import mocked from "../mock/mockData.json"; // mock data
-
 // hooks
 // import { useHttpClient } from "../../util/httpHook";
 
 export const TeamsContext = createContext();
 
 export const TeamsState = ({ children }) => {
-  // state
+  // fetched teams state
   const initialState = {
     teams: [], // filled by fetching api
     isLoading: false, // loading status
   };
+
+  // displayed teams state
+  const [displayedTeams, setDisplayedTeams] = useState([]);
 
   // update state
   const [state, dispatch] = useReducer(teamsReducer, initialState);
@@ -39,7 +38,9 @@ export const TeamsState = ({ children }) => {
 
       // update state
       dispatch({ type: GET_TEAMS, payload: teams });
-      console.log(teams);
+
+      // initialize teams displayed
+      setDisplayedTeams(teams.slice(0, 10));
     } catch (error) {
       console.error(error);
     }
@@ -51,9 +52,13 @@ export const TeamsState = ({ children }) => {
   return (
     <TeamsContext.Provider
       value={{
-        // teams
-        getTeams, // fetch teams
-        teams, // fetched teams
+        // fetched teams
+        getTeams,
+        teams,
+
+        // displayed teams
+        setDisplayedTeams,
+        displayedTeams,
       }}
     >
       {children}

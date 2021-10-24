@@ -1,7 +1,35 @@
+.button--container {
+  display: grid;
+  place-items: center;
+}
+
+.page--button {
+  border-radius: 50px;
+  background: var(--main-color);
+  display: block;
+  width: 100%;
+  min-width: 50px;
+  padding: 1rem;
+  margin: 1rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.page--button:hover {
+  box-shadow: 0 2.5px 5px var(--darkener-color);
+}
+
+.selected {
+  background: var(--main-color);
+  border-radius: 50%;
+  color: #fff;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
 .pagination--container {
   display: flex;
-  flex-wrap: wrap;
   justify-content: center;
-  align-items: center;
-  border: 1px solid blue;
+  padding-bottom: 20rem;
+  list-style-type: none;
 }
