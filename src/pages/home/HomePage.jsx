@@ -5,7 +5,6 @@ import Navbar from "../../components/navbar/Navbar";
 import Pagination from "../../components/pagination/Pagination";
 import TeamsGrid from "../../components/teamsGrid/TeamsGrid";
 // context
-import { AuthContext } from "../../context/auth/authContext";
 import { TeamsContext } from "../../context/teams/teamsContext";
 import "./HomePage.css";
 
@@ -14,18 +13,21 @@ const HomePage = () => {
   const history = useHistory();
 
   // context
-  const { isAuthorized } = useContext(AuthContext);
   const { getTeams } = useContext(TeamsContext);
 
-  // force redirect to login page
-  useEffect(() => {
-    !isAuthorized ? history.push("/login") : getTeams();
-  }, [isAuthorized, history, getTeams]);
+  // redirect to login page if not authorized
+  useEffect(
+    () =>
+      localStorage.getItem("isAuthorized")
+        ? getTeams()
+        : history.push("/login"),
+    [history, getTeams]
+  );
 
   return (
     <div className="home">
       <div className="container">
-        {/* loading... */}
+        {/* loading... todo */}
 
         {/* nav bar */}
         <Navbar />

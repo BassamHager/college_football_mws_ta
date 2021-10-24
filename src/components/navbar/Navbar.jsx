@@ -1,22 +1,24 @@
-import { useContext } from "react";
-import "./Navbar.css";
-
+import { useHistory } from "react-router-dom";
 // components
 import Button from "../shared/UI/button/Button";
-
-// context
-import { AuthContext } from "../../context/auth/authContext";
+import "./Navbar.css";
 
 const Navbar = () => {
-  // context
-  const { setIsAuthorized } = useContext(AuthContext);
+  // history
+  const history = useHistory();
+
+  // logout
+  const logout = () => {
+    localStorage.removeItem("isAuthorized");
+    history.push("/login");
+  };
 
   return (
     <nav className="navbar">
       <div /* empty for styling purposes */ />
       <h1>College Football MWS</h1>
 
-      <Button className="button--logout" onClick={() => setIsAuthorized(false)}>
+      <Button className="button--logout" onClick={logout}>
         Logout <i className="fas fa-sign-out-alt"></i>
       </Button>
     </nav>

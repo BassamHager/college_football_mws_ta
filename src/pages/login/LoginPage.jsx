@@ -1,16 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import "./LoginPage.css";
 import { useHistory } from "react-router-dom";
-
-// components
-import Input from "../../components/shared/UI/input/Input";
 import Alert from "../../components/alert/Alert";
-
-// constants
-import { LOGIN_PASSWORD } from "../../context/shared/constants";
-
 // context
 import { AuthContext } from "../../context/auth/authContext";
+// components
+import Input from "../../components/shared/UI/input/Input";
+// constants
+import { LOGIN_PASSWORD } from "../../context/shared/constants";
+import "./LoginPage.css";
 
 const LoginPage = () => {
   // internal state
@@ -18,8 +15,7 @@ const LoginPage = () => {
   const [inputValues, setInputValues] = useState([]);
 
   // context
-  const { isAuthorized, setIsAuthorized, isWrongPW, setIsWrongPW } =
-    useContext(AuthContext);
+  const { isWrongPW, setIsWrongPW } = useContext(AuthContext);
 
   // history
   const history = useHistory();
@@ -29,7 +25,8 @@ const LoginPage = () => {
     try {
       // if correct: authorize
       if (inputValues.join("") === LOGIN_PASSWORD) {
-        setIsAuthorized(true); // triggers useEffect
+        localStorage.setItem("isAuthorized", JSON.stringify(true));
+        history.push("/");
       }
       // else: display alert
       else {
@@ -37,7 +34,7 @@ const LoginPage = () => {
         setIsWrongPW(true);
 
         // get inputs, add danger class & reset value of each
-        document.querySelectorAll(`input`).forEach((inp) => {
+        document.querySelectorAll("input").forEach((inp) => {
           inp.classList.add("danger");
           inp.value = "";
         });
@@ -46,17 +43,18 @@ const LoginPage = () => {
         setInputValues([]);
 
         // reset focus to first input
-        document.querySelector(`input[name=input-1]`).focus();
+        document.querySelector("input[name=input-1]").focus();
       }
     } catch (error) {
       console.error(error);
     }
   };
 
-  // watch isAuthorized to redirect to homepage when it's true
-  useEffect(() => {
-    isAuthorized && history.push("/");
-  }, [isAuthorized, history]);
+  // redirect to home page if authorized
+  useEffect(
+    () => localStorage.getItem("isAuthorized") && history.push("/"),
+    [history]
+  );
 
   return (
     <div className="background">
