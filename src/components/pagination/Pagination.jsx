@@ -11,7 +11,7 @@ const Pagination = () => {
 
   // pagination state
   const teamsPerPage = 10;
-  const pageCount = Math.ceil(teams.length / teamsPerPage);
+  const pageCount = Math.ceil(teams?.length / teamsPerPage);
   const [clickedPageNum, setClickedPageNum] = useState(0);
   const firstIndexInPage = teamsPerPage * clickedPageNum;
   const lastIndexInPage = firstIndexInPage + teamsPerPage;
