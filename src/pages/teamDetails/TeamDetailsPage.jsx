@@ -1,11 +1,19 @@
 import { useContext, useEffect } from "react";
 import "./TeamDetailsPage.css";
-import { withRouter } from "react-router-dom";
+import { withRouter, useHistory } from "react-router-dom";
+
+// context
 import { TeamsContext } from "../../context/teams/teamsContext";
+
+// components
+import Button from "../../components/shared/UI/button/Button";
 
 const TeamDetails = ({ match }) => {
   // context
   const { getTeamDetails, teamDetails } = useContext(TeamsContext);
+
+  // history
+  const history = useHistory();
 
   // get team details using id in match params
   useEffect(() => {
@@ -15,11 +23,18 @@ const TeamDetails = ({ match }) => {
   return (
     <div className="details--container">
       <div className="container">
-        {/* title */}
-        <h2 className="team--title">
-          {teamDetails?.school || "unknown name"} -
-          {teamDetails.abbreviation || "unknown abbreviation"}
-        </h2>
+        <div className="heading--bar">
+          {/* title */}
+          <h2 className="team--title">
+            {teamDetails?.school || "unknown name"} -{" "}
+            {teamDetails.abbreviation || "unknown abbreviation"}
+          </h2>
+
+          {/* go back button */}
+          <Button className="button--back" onClick={() => history.push("/")}>
+            Back <i class="fas fa-arrow-left"></i>
+          </Button>
+        </div>
 
         {/* container of two siblings */}
         <div className="flex--container">
