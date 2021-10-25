@@ -2,7 +2,12 @@ import { createContext, useCallback, useReducer, useState } from "react";
 // reducer
 import teamsReducer from "./teamsReducer";
 // types
-import { GET_TEAMS, GET_TEAM_DETAILS, START_LOADING } from "../shared/types";
+import {
+  GET_TEAMS,
+  GET_TEAM_DETAILS,
+  START_LOADING,
+  SEARCH_TEAM,
+} from "../shared/types";
 // context
 // import { GET_TEAMS_URL } from "../../context/shared/constants";
 import mocked from "../mock/mockData.json"; // mock data
@@ -17,6 +22,7 @@ export const TeamsState = ({ children }) => {
     teams: [], // filled by fetching api
     isLoading: false, // loading status
     teamDetails: {}, // details of clicked team card
+    searchedTeams: [], // teams that search-input is being included in their names
   };
 
   // displayed teams state
@@ -24,6 +30,8 @@ export const TeamsState = ({ children }) => {
 
   // update state
   const [state, dispatch] = useReducer(teamsReducer, initialState);
+  // destructure state
+  const { teams, teamDetails, searchedTeams } = state;
 
   // hooks
   // const { isLoading, error, sendRequest, clearError } = useHttpClient();
@@ -54,9 +62,6 @@ export const TeamsState = ({ children }) => {
     }
   }, []);
 
-  // destructure state
-  const { teams, teamDetails } = state;
-
   // get clicked team details
   const getTeamDetails = useCallback(
     (id) => {
@@ -77,6 +82,29 @@ export const TeamsState = ({ children }) => {
     [displayedTeams]
   );
 
+  // search team
+  const searchTeam = useCallback(
+    (input) => {
+      try {
+        if (!input) throw new Error("No input!, please enter a team name");
+
+        // start loading
+        dispatch({ type: START_LOADING });
+
+        // get matching teams
+        const matchingTeams = teams?.filter((team) =>
+          team.school?.includes(input)
+        );
+
+        // update state
+        dispatch({ type: SEARCH_TEAM, payload: matchingTeams });
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    [teams]
+  );
+
   return (
     <TeamsContext.Provider
       value={{
@@ -91,6 +119,10 @@ export const TeamsState = ({ children }) => {
         // clicked team details
         getTeamDetails,
         teamDetails,
+
+        // searched team
+        searchTeam,
+        searchedTeams,
       }}
     >
       {children}

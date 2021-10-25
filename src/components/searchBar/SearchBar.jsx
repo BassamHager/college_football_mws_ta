@@ -1,20 +1,24 @@
-import { useState, useCallback } from "react";
+import { useCallback, useContext, useState } from "react";
 import "./SearchBar.css";
-
+// context
+import { TeamsContext } from "../../context/teams/teamsContext";
 // components
 import Button from "../../components/shared/UI/button/Button";
 
 const SearchBar = () => {
-  // inner state
+  // internal state
   const [searchInput, setSearchInput] = useState("");
+
+  // context
+  const { searchTeam } = useContext(TeamsContext);
 
   // submit search
   const submitSearch = useCallback(
     (e) => {
       e.preventDefault();
-      console.log(searchInput);
+      searchTeam(searchInput);
     },
-    [searchInput]
+    [searchTeam, searchInput]
   );
 
   return (

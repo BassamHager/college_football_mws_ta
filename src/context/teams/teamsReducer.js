@@ -1,5 +1,10 @@
 // types
-import { GET_TEAMS, GET_TEAM_DETAILS, START_LOADING } from "../shared/types";
+import {
+  GET_TEAMS,
+  GET_TEAM_DETAILS,
+  START_LOADING,
+  SEARCH_TEAM,
+} from "../shared/types";
 
 const teamsReducer = (state, action) => {
   const { type, payload } = action;
@@ -13,6 +18,9 @@ const teamsReducer = (state, action) => {
 
     case GET_TEAM_DETAILS:
       return { ...state, teamDetails: payload, isLoading: false };
+
+    case SEARCH_TEAM:
+      return { ...state, searchedTeams: payload, isLoading: false };
 
     default:
       return state;
