@@ -9,7 +9,7 @@ import TeamsGrid from "../../components/teamsGrid/TeamsGrid";
 import { TeamsContext } from "../../context/teams/teamsContext";
 import "./HomePage.css";
 
-const HomePage = () => {
+const HomePage = ({ match }) => {
   // history
   const history = useHistory();
 
@@ -37,7 +37,7 @@ const HomePage = () => {
         <SearchBar />
 
         {/* teams grid */}
-        <TeamsGrid />
+        <TeamsGrid match={match} />
 
         {/* pagination */}
         <Pagination />

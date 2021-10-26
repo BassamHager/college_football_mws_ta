@@ -1,5 +1,6 @@
 import { useCallback, useContext, useState } from "react";
 import "./SearchBar.css";
+import { useHistory } from "react-router-dom";
 // context
 import { TeamsContext } from "../../context/teams/teamsContext";
 // components
@@ -12,13 +13,30 @@ const SearchBar = () => {
   // context
   const { searchTeam } = useContext(TeamsContext);
 
+  // history
+  const history = useHistory();
+
   // submit search
   const submitSearch = useCallback(
     (e) => {
-      e.preventDefault();
-      searchTeam(searchInput);
+      try {
+        e.preventDefault();
+        // clear local storage
+        localStorage.removeItem("searched");
+
+        // validate input
+        if (searchInput === "")
+          throw new Error("Empty input, please enter a team name");
+        else searchTeam(searchInput);
+
+        // redirect to /searched & update homepage team cards
+        const teams = localStorage.getItem("searched");
+        if (teams?.length > 0) history.push(`/searched/${searchInput}`);
+      } catch (error) {
+        console.error(error.message);
+      }
     },
-    [searchTeam, searchInput]
+    [searchTeam, searchInput, history]
   );
 
   return (

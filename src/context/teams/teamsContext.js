@@ -22,11 +22,10 @@ export const TeamsState = ({ children }) => {
     teams: [], // filled by fetching api
     isLoading: false, // loading status
     teamDetails: {}, // details of clicked team card
-    searchedTeams: [], // teams that search-input is being included in their names
   };
 
   // displayed teams state
-  const [displayedTeams, setDisplayedTeams] = useState([]);
+  const [loadedTeams, setLoadedTeams] = useState([]);
 
   // update state
   const [state, dispatch] = useReducer(teamsReducer, initialState);
@@ -56,7 +55,7 @@ export const TeamsState = ({ children }) => {
       dispatch({ type: GET_TEAMS, payload: teams });
 
       // initialize teams displayed
-      setDisplayedTeams(teams?.slice(0, 10));
+      setLoadedTeams(teams?.slice(0, 10));
     } catch (error) {
       console.error(error);
     }
@@ -69,7 +68,7 @@ export const TeamsState = ({ children }) => {
         // update loading
         dispatch({ type: START_LOADING });
 
-        const clickedTeam = displayedTeams.filter(
+        const clickedTeam = loadedTeams?.filter(
           (team) => team.id === Number(id)
         )[0];
         if (clickedTeam) {
@@ -79,27 +78,32 @@ export const TeamsState = ({ children }) => {
         console.error(error);
       }
     },
-    [displayedTeams]
+    [loadedTeams]
   );
 
   // search team
   const searchTeam = useCallback(
     (input) => {
       try {
-        if (!input) throw new Error("No input!, please enter a team name");
-
         // start loading
-        dispatch({ type: START_LOADING });
+        // dispatch({ type: START_LOADING });
 
         // get matching teams
         const matchingTeams = teams?.filter((team) =>
           team.school?.includes(input)
         );
 
-        // update state
-        dispatch({ type: SEARCH_TEAM, payload: matchingTeams });
+        // console.log(matchingTeams);
+
+        // save on local storage
+        if (matchingTeams?.length > 0) {
+          localStorage.setItem("searched", JSON.stringify(matchingTeams));
+
+          // update state
+          dispatch({ type: SEARCH_TEAM, payload: matchingTeams });
+        } else throw new Error("No teams matched the input!");
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
       }
     },
     [teams]
@@ -113,8 +117,8 @@ export const TeamsState = ({ children }) => {
         teams,
 
         // displayed teams
-        setDisplayedTeams,
-        displayedTeams,
+        setLoadedTeams,
+        loadedTeams,
 
         // clicked team details
         getTeamDetails,

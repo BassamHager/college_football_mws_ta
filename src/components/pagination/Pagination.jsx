@@ -7,7 +7,7 @@ import { TeamsContext } from "../../context/teams/teamsContext";
 
 const Pagination = () => {
   // context
-  const { teams, setDisplayedTeams } = useContext(TeamsContext);
+  const { teams, setLoadedTeams } = useContext(TeamsContext);
 
   // pagination state
   const teamsPerPage = 10;
@@ -24,11 +24,11 @@ const Pagination = () => {
       console.log(e.selected + 1);
 
       // update displayed teams
-      setDisplayedTeams(teams.slice(firstIndexInPage, lastIndexInPage));
+      setLoadedTeams(teams.slice(firstIndexInPage, lastIndexInPage));
     },
     [
       setClickedPageNum,
-      setDisplayedTeams,
+      setLoadedTeams,
       teams,
       firstIndexInPage,
       lastIndexInPage,

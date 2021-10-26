@@ -1,10 +1,8 @@
 import { useContext, useEffect } from "react";
 import "./TeamDetailsPage.css";
 import { withRouter, useHistory } from "react-router-dom";
-
 // context
 import { TeamsContext } from "../../context/teams/teamsContext";
-
 // components
 import Button from "../../components/shared/UI/button/Button";
 
@@ -31,8 +29,8 @@ const TeamDetails = ({ match }) => {
           </h2>
 
           {/* go back button */}
-          <Button className="button--back" onClick={() => history.push("/")}>
-            Back <i class="fas fa-arrow-left"></i>
+          <Button className="button--back" onClick={() => history.goBack()}>
+            Back <i className="fas fa-arrow-left"></i>
           </Button>
         </div>
 

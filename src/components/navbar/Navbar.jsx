@@ -10,6 +10,7 @@ const Navbar = () => {
   // logout
   const logout = () => {
     localStorage.removeItem("isAuthorized");
+    localStorage.removeItem("searched");
     history.push("/login");
   };
 
