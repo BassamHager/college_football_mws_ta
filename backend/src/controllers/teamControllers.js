@@ -12,21 +12,18 @@ const getTeams = async (_, res) => {
       conference: "B12",
     };
 
-    apiInstance
-      .getTeams(opts)
-      .then((data, err) => {
-        if (err) {
-          const error = new HttpError(
-            "Something went wrong, could not fetch teams",
-            404
-          );
+    apiInstance.getTeams(opts).then((data, err) => {
+      if (err) {
+        const error = new HttpError(
+          "Something went wrong, could not fetch teams",
+          404
+        );
 
-          return res.json(error);
-        }
+        return res.json(error);
+      }
 
-        return res.json(data);
-      })
-      .catch((err) => console.error(err.message));
+      return res.json(data);
+    });
   } catch (error) {
     console.error("ERROR:", error.message);
   }
@@ -61,4 +58,31 @@ const getTeamCalendar = async (req, res) => {
   }
 };
 
-module.exports = { getTeams, getTeamCalendar };
+// get team game stats
+const getTeamGameStats = async (req, res) => {
+  try {
+    const { year, teamName } = req.params;
+
+    const apiInstance = new cfb.GamesApi();
+
+    const opts = {
+      team: teamName,
+    };
+
+    apiInstance.getTeamGameStats(year, opts).then((data, err) => {
+      if (err) {
+        const error = new HttpError(
+          "Something went wrong, could not fetch team game stats",
+          404
+        );
+        return res.json(error);
+      }
+
+      return res.json(data);
+    });
+  } catch (error) {
+    console.error("ERROR: ", error.message);
+  }
+};
+
+module.exports = { getTeams, getTeamCalendar, getTeamGameStats };
