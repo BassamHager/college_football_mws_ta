@@ -8,11 +8,6 @@ const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-app.use("/", teamRoutes);
-
 app
-  .use(() => {
-    const error = new HttpError("Could not find this route.", 404);
-    throw error;
-  })
+  .use("/", teamRoutes)
   .listen(PORT, () => console.log(`Running on: http://localhost:${PORT}`));
