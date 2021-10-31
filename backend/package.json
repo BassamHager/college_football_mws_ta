@@ -4,19 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./src/index.js",
-    "lint": "eslint ./src",
-    "prepare": "npm run lint"
+    "start": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "Bassam Hager",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^8.1.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "husky": "^7.0.4",
-    "nodemon": "^2.0.14",
-    "prettier": "2.4.1"
+    "nodemon": "^2.0.14"
+  },
+  "dependencies": {
+    "cfb.js": "^4.2.2",
+    "express": "^4.17.1"
   }
 }
