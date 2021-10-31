@@ -24,7 +24,7 @@ const Pagination = () => {
       console.log(e.selected + 1);
 
       // update displayed teams
-      setLoadedTeams(teams.slice(firstIndexInPage, lastIndexInPage));
+      setLoadedTeams(teams?.slice(firstIndexInPage, lastIndexInPage));
     },
     [
       setClickedPageNum,

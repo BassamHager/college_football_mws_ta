@@ -9,10 +9,9 @@ import {
   SEARCH_TEAM,
 } from "../shared/types";
 // context
-// import { GET_TEAMS_URL } from "../../context/shared/constants";
-import mocked from "../mock/mockData.json"; // mock data
+import { GET_TEAMS_URL } from "../../context/shared/constants";
 // hooks
-// import { useHttpClient } from "../../util/httpHook";
+import { useHttpClient } from "../../util/httpHook";
 
 export const TeamsContext = createContext();
 
@@ -33,33 +32,26 @@ export const TeamsState = ({ children }) => {
   const { teams, teamDetails, searchedTeams } = state;
 
   // hooks
-  // const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { sendRequest } = useHttpClient();
 
   // fetch teams
   const getTeams = useCallback(async () => {
     try {
-      // update loading
       dispatch({ type: START_LOADING });
 
-      // mocked data
-      const teams = mocked;
-      // const teams = await sendRequest(GET_TEAMS_URL, "GET", null, {
-      //   "Access-Control-Allow-Origin": "*",
-      //   accept: "application/json",
-      //   "Content-Type": "application/json",
-      //   Authorization:
-      //     "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
-      // });
+      const teams = await sendRequest(GET_TEAMS_URL, "GET", null, {
+        Authorization:
+          "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
+      });
 
-      // update state
       dispatch({ type: GET_TEAMS, payload: teams });
 
-      // initialize teams displayed
-      setLoadedTeams(teams?.slice(0, 10));
+      // onload displayed teams
+      setLoadedTeams(teams?.length > 9 ? teams?.slice(0, 10) : []);
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
     }
-  }, []);
+  }, [sendRequest]);
 
   // get clicked team details
   const getTeamDetails = useCallback(

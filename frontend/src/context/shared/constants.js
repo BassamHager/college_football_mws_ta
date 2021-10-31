@@ -1,2 +1,2 @@
 export const LOGIN_PASSWORD = "123123";
-export const GET_TEAMS_URL = "https://api.collegefootballdata.com/teams";
+export const GET_TEAMS_URL = "http://localhost:4000";

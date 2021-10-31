@@ -23,7 +23,7 @@ const TeamsGrid = ({ match }) => {
 
   return (
     <div className="teams--grid">
-      {currentTeams.map(({ id, school, logos }) => (
+      {currentTeams?.map(({ id, school, logos }) => (
         <TeamCard key={id} id={id} school={school} logo={logos && logos[0]} />
       ))}
     </div>
