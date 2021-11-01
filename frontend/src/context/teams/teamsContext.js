@@ -16,15 +16,17 @@ import { useHttpClient } from "../../util/httpHook";
 export const TeamsContext = createContext();
 
 export const TeamsState = ({ children }) => {
-  // fetched teams state
+  // state
   const initialState = {
     teams: [], // filled by fetching api
     isLoading: false, // loading status
     teamDetails: {}, // details of clicked team card
+    searchedTeams: [], // teams that search-input is included in their names
   };
-
-  // displayed teams state
+  // state - displayed teams on homepage load
   const [loadedTeams, setLoadedTeams] = useState([]);
+  // state - to clear input on clicking main title to go homepage
+  const [isClearInput, setIsClearInput] = useState(false);
 
   // update state
   const [state, dispatch] = useReducer(teamsReducer, initialState);
@@ -57,15 +59,15 @@ export const TeamsState = ({ children }) => {
   const getTeamDetails = useCallback(
     (id) => {
       try {
-        // update loading
         dispatch({ type: START_LOADING });
 
         const clickedTeam = loadedTeams?.filter(
           (team) => team.id === Number(id)
         )[0];
-        if (clickedTeam) {
+
+        if (clickedTeam)
           dispatch({ type: GET_TEAM_DETAILS, payload: clickedTeam });
-        } else throw new Error("Clicked team details not found!");
+        else throw new Error("Clicked team details not found!");
       } catch (error) {
         console.error(error);
       }
@@ -78,20 +80,17 @@ export const TeamsState = ({ children }) => {
     (input) => {
       try {
         // start loading
-        // dispatch({ type: START_LOADING });
+        dispatch({ type: START_LOADING });
 
         // get matching teams
         const matchingTeams = teams?.filter((team) =>
           team.school?.includes(input)
         );
 
-        // console.log(matchingTeams);
-
         // save on local storage
         if (matchingTeams?.length > 0) {
           localStorage.setItem("searched", JSON.stringify(matchingTeams));
 
-          // update state
           dispatch({ type: SEARCH_TEAM, payload: matchingTeams });
         } else throw new Error("No teams matched the input!");
       } catch (error) {
@@ -100,6 +99,22 @@ export const TeamsState = ({ children }) => {
     },
     [teams]
   );
+
+  // clear searched teams
+  const clearSearchedTeams = () => {
+    try {
+      // clear local storage
+      localStorage.removeItem("searched");
+
+      // clear state
+      dispatch({ type: SEARCH_TEAM, payload: [] });
+
+      // clear input
+      setIsClearInput(true);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <TeamsContext.Provider
@@ -118,7 +133,10 @@ export const TeamsState = ({ children }) => {
 
         // searched team
         searchTeam,
+        clearSearchedTeams,
         searchedTeams,
+        setIsClearInput,
+        isClearInput,
       }}
     >
       {children}

@@ -14,12 +14,14 @@ const TeamsGrid = ({ match }) => {
 
   // display only searched teams on search
   useEffect(() => {
-    const storedTeams = localStorage.getItem("searched");
-    const teams = JSON.parse(storedTeams);
-    setCurrentTeams(teams?.length > 0 ? teams : loadedTeams);
-  }, [setCurrentTeams, loadedTeams, match.url]);
-
-  useEffect(() => {});
+    if (match.url === "/") setCurrentTeams(loadedTeams);
+    else {
+      const storedTeams = localStorage.getItem("searched");
+      let teams;
+      if (storedTeams) teams = JSON.parse(storedTeams);
+      setCurrentTeams(teams?.length > 0 ? teams : []);
+    }
+  }, [setCurrentTeams, loadedTeams, match]);
 
   return (
     <div className="teams--grid">

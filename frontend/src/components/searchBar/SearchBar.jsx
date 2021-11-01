@@ -1,4 +1,4 @@
-import { useCallback, useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import "./SearchBar.css";
 import { useHistory } from "react-router-dom";
 // context
@@ -11,7 +11,8 @@ const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");
 
   // context
-  const { searchTeam } = useContext(TeamsContext);
+  const { searchTeam, isClearInput, setIsClearInput } =
+    useContext(TeamsContext);
 
   // history
   const history = useHistory();
@@ -38,6 +39,17 @@ const SearchBar = () => {
     },
     [searchTeam, searchInput, history]
   );
+
+  // clear input & reset the clearing boolean to false
+  const clearInput = useCallback(() => {
+    setSearchInput("");
+    setIsClearInput(false);
+  }, [setIsClearInput]);
+
+  // watch clearing boolean
+  useEffect(() => {
+    isClearInput && clearInput();
+  }, [isClearInput, clearInput]);
 
   return (
     <div className="container">

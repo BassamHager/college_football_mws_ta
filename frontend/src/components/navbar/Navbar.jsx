@@ -1,9 +1,14 @@
-import { useHistory } from "react-router-dom";
+import { useContext } from "react";
+import { useHistory, Link } from "react-router-dom";
+// context
+import { TeamsContext } from "../../context/teams/teamsContext";
 // components
 import Button from "../shared/UI/button/Button";
 import "./Navbar.css";
 
 const Navbar = () => {
+  // context
+  const { clearSearchedTeams } = useContext(TeamsContext);
   // history
   const history = useHistory();
 
@@ -17,7 +22,9 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div /* empty for styling purposes */ />
-      <h1>College Football MWS</h1>
+      <Link to="/" onClick={clearSearchedTeams}>
+        <h1>College Football MWS</h1>
+      </Link>
 
       <Button className="button--logout" onClick={logout}>
         Logout <i className="fas fa-sign-out-alt"></i>

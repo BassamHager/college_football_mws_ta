@@ -7,6 +7,12 @@
   background: #fff;
 }
 
+.navbar a:hover {
+  color: var(--main-color);
+  letter-spacing: 0.1rem;
+  transition: all 0.3s ease-in-out;
+}
+
 .button--logout {
   width: 7rem;
   height: 7rem;
