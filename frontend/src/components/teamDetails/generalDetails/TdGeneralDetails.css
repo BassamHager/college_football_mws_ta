@@ -1,0 +1,15 @@
+.content--container {
+  flex-basis: 60%;
+  padding: 1rem 2rem;
+  font-size: max(2rem, 1.5vw);
+  text-align: left;
+}
+
+.field--info {
+  margin-bottom: 1rem;
+}
+
+.field--info span:nth-child(1) {
+  color: gray;
+  text-transform: uppercase;
+}
