@@ -61,15 +61,21 @@ export const TeamsState = ({ children }) => {
       try {
         dispatch({ type: START_LOADING });
 
+        // get team data by its id
         const clickedTeam = loadedTeams?.filter(
           (team) => team.id === Number(id)
         )[0];
 
-        if (clickedTeam)
+        if (clickedTeam) {
+          // save on local storage
+          localStorage.setItem("teamDetails", JSON.stringify(clickedTeam));
+
+          // update state
           dispatch({ type: GET_TEAM_DETAILS, payload: clickedTeam });
-        else throw new Error("Clicked team details not found!");
+        }
+        // end loading - todo
       } catch (error) {
-        console.error(error);
+        console.error(error.message);
       }
     },
     [loadedTeams]
@@ -79,7 +85,6 @@ export const TeamsState = ({ children }) => {
   const searchTeam = useCallback(
     (input) => {
       try {
-        // start loading
         dispatch({ type: START_LOADING });
 
         // get matching teams
@@ -91,6 +96,7 @@ export const TeamsState = ({ children }) => {
         if (matchingTeams?.length > 0) {
           localStorage.setItem("searched", JSON.stringify(matchingTeams));
 
+          // update state
           dispatch({ type: SEARCH_TEAM, payload: matchingTeams });
         } else throw new Error("No teams matched the input!");
       } catch (error) {

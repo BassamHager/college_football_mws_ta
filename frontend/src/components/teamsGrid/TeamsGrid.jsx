@@ -12,7 +12,7 @@ const TeamsGrid = ({ match }) => {
   // internal state
   const [currentTeams, setCurrentTeams] = useState([]);
 
-  // display only searched teams on search
+  // toggle display according to match.url
   useEffect(() => {
     if (match.url === "/") setCurrentTeams(loadedTeams);
     else {

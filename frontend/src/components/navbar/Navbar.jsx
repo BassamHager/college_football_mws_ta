@@ -16,6 +16,7 @@ const Navbar = () => {
   const logout = () => {
     localStorage.removeItem("isAuthorized");
     localStorage.removeItem("searched");
+    localStorage.removeItem("teamDetails");
     history.push("/login");
   };
 

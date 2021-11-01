@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import "./TeamDetailsPage.css";
 import { withRouter, useHistory } from "react-router-dom";
 // context
@@ -10,13 +10,28 @@ const TeamDetails = ({ match }) => {
   // context
   const { getTeamDetails, teamDetails } = useContext(TeamsContext);
 
+  // internal state
+  const [currentTeamDetails, setCurrentTeamDetails] = useState({});
+
   // history
   const history = useHistory();
 
-  // get team details using id in match params
+  // get and toggle team details using id in match params
+  const getAndToggleTeamDetails = useCallback(
+    (id) => {
+      getTeamDetails(id);
+
+      const storedTeamDetails = localStorage.getItem("teamDetails");
+      const jsonDetails = JSON.parse(storedTeamDetails);
+
+      setCurrentTeamDetails(jsonDetails ? jsonDetails : teamDetails);
+    },
+    [getTeamDetails, teamDetails]
+  );
+
   useEffect(() => {
-    getTeamDetails(match.params.id);
-  }, [getTeamDetails, match]);
+    getAndToggleTeamDetails(match.params.id);
+  }, [getAndToggleTeamDetails, match]);
 
   return (
     <div className="details--container">
@@ -24,8 +39,8 @@ const TeamDetails = ({ match }) => {
         <div className="heading--bar">
           {/* title */}
           <h2 className="team--title">
-            {teamDetails?.school || "unknown name"} -{" "}
-            {teamDetails.abbreviation || "unknown abbreviation"}
+            {currentTeamDetails?.school || "unknown name"} -{" "}
+            {currentTeamDetails.abbreviation || "unknown abbreviation"}
           </h2>
 
           {/* go back button */}
@@ -38,106 +53,130 @@ const TeamDetails = ({ match }) => {
         <div className="flex--container">
           {/* logo img container */}
           <div className="logo--container">
+            <div className="details--buttons">
+              <button>previous games</button>
+              <button>upcoming games</button>
+            </div>
+
             <img
               src={
-                (teamDetails?.logos && teamDetails.logos[0]) ||
+                (currentTeamDetails?.logos && currentTeamDetails.logos[0]) ||
                 "https://live.staticflickr.com/1878/44377254611_96d0b13955_b.jpg"
               }
-              alt={teamDetails?.school}
+              alt={currentTeamDetails?.school}
             />
+            <button>team details</button>
           </div>
 
           {/* written details container */}
           <div className="content--container">
             <div className="field--info">
               <span>mascot </span>
-              <span> {teamDetails?.mascot || "unknown"} </span>
+              <span> {currentTeamDetails?.mascot || "unknown"} </span>
             </div>
 
             <div className="field--info">
               <span>conference </span>
-              <span> {teamDetails?.conference || "unknown"} </span>
+              <span> {currentTeamDetails?.conference || "unknown"} </span>
             </div>
 
             <div className="field--info">
               <span>division</span>
-              <span> {teamDetails?.division || "unknown"} </span>
+              <span> {currentTeamDetails?.division || "unknown"} </span>
             </div>
             <div className="field--info color">
               <span>color </span>
-              <span style={{ background: teamDetails?.color }}>
+              <span style={{ background: currentTeamDetails?.color }}>
                 {" "}
-                {teamDetails?.color || "unknown"}
+                {currentTeamDetails?.color || "unknown"}
               </span>
             </div>
             <div className="field--info">
               <span>alt_color </span>
-              <span style={{ background: teamDetails?.alt_color }}>
+              <span style={{ background: currentTeamDetails?.alt_color }}>
                 {" "}
-                {teamDetails?.alt_color || "unknown"}
+                {currentTeamDetails?.alt_color || "unknown"}
               </span>
             </div>
             <div className="field--info">
               {/* location */}
               <span>venue_id</span>
-              <span> {teamDetails?.location?.venue_id || "unknown"} </span>
+              <span>
+                {" "}
+                {currentTeamDetails?.location?.venue_id || "unknown"}{" "}
+              </span>
             </div>
             <div className="field--info">
               <span>name</span>
-              <span> {teamDetails?.location?.name || "unknown"} </span>
+              <span> {currentTeamDetails?.location?.name || "unknown"} </span>
             </div>
             <div className="field--info">
               <span>city</span>
-              <span> {teamDetails?.location?.city || "unknown"} </span>
+              <span> {currentTeamDetails?.location?.city || "unknown"} </span>
             </div>
             <div className="field--info">
               <span>state</span>
-              <span> {teamDetails?.location?.state || "unknown"} </span>
+              <span> {currentTeamDetails?.location?.state || "unknown"} </span>
             </div>
             <div className="field--info"></div>
 
             <div className="field--info">
               <span>zip</span>
-              <span> {teamDetails?.location?.zip || "unknown"} </span>
+              <span> {currentTeamDetails?.location?.zip || "unknown"} </span>
             </div>
 
             <div className="field--info">
               <span>country_code </span>
-              <span>{teamDetails?.location?.country_code || "unknown"} </span>
+              <span>
+                {currentTeamDetails?.location?.country_code || "unknown"}{" "}
+              </span>
             </div>
             <div className="field--info">
               <span>timezone </span>
-              <span> {teamDetails?.location?.timezone || "unknown"} </span>
+              <span>
+                {" "}
+                {currentTeamDetails?.location?.timezone || "unknown"}{" "}
+              </span>
             </div>
             <div className="field--info">
               <span>latitude </span>
-              <span> {teamDetails?.location?.latitude || "unknown"} </span>
+              <span>
+                {" "}
+                {currentTeamDetails?.location?.latitude || "unknown"}{" "}
+              </span>
             </div>
             <div className="field--info">
               <span>longitude </span>
-              <span>{teamDetails?.location?.longitude || "unknown"}</span>
+              <span>
+                {currentTeamDetails?.location?.longitude || "unknown"}
+              </span>
             </div>
             <div className="field--info">
               <span>elevation </span>
-              <span>{teamDetails?.location?.elevation || "unknown"}</span>
+              <span>
+                {currentTeamDetails?.location?.elevation || "unknown"}
+              </span>
             </div>
             <div className="field--info">
               <span>capacity</span>
-              <span> {teamDetails?.location?.capacity || "unknown"} </span>
+              <span>
+                {" "}
+                {currentTeamDetails?.location?.capacity || "unknown"}{" "}
+              </span>
             </div>
             <div className="field--info">
               <span>year_constructed </span>
               <span>
-                {teamDetails?.location?.year_constructed || "unknown"}
+                {currentTeamDetails?.location?.year_constructed || "unknown"}
               </span>
             </div>
             <div className="field--info">
               <span>grass </span>
-              <span> {teamDetails?.location?.grass || "unknown"} </span>
+              <span> {currentTeamDetails?.location?.grass || "unknown"} </span>
             </div>
             <div className="field--info">
               <span>dome </span>
-              <span> {teamDetails?.location?.dome || "unknown"} </span>
+              <span> {currentTeamDetails?.location?.dome || "unknown"} </span>
             </div>
           </div>
         </div>

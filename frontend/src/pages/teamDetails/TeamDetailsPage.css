@@ -53,6 +53,17 @@
   color: #000;
 }
 
+.details--buttons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.logo--container button {
+  width: 100%;
+  height: 5rem;
+  font-size: 1.5rem;
+}
+
 .details--container img {
   width: 100%;
   min-width: 250px;
