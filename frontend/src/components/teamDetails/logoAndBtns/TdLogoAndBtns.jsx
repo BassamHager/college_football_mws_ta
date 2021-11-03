@@ -1,11 +1,28 @@
+import { useCallback, useContext } from "react";
 import "./TdLogoAndBtns.css";
+// context
+import { TeamsContext } from "../../../context/teams/teamsContext";
 
-const TdLogoAndBtns = ({ currentTeamDetails }) => {
+const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
+  // context
+  const { getUpcomingGames } = useContext(TeamsContext);
+
+  // get upcoming games
+  const getComingGames = useCallback(
+    (teamName) => {
+      setContent("upcoming");
+      getUpcomingGames(teamName);
+    },
+    [getUpcomingGames, setContent]
+  );
+
   return (
     <div className="logo--container">
       <div className="details--buttons">
         <button>previous games</button>
-        <button onClick={() => console.log("clicked")}>upcoming games</button>
+        <button onClick={() => getComingGames(currentTeamDetails?.school)}>
+          upcoming games
+        </button>
       </div>
 
       <img
@@ -15,7 +32,7 @@ const TdLogoAndBtns = ({ currentTeamDetails }) => {
         }
         alt={currentTeamDetails?.school}
       />
-      <button>team details</button>
+      <button onClick={() => setContent("details")}>team details</button>
     </div>
   );
 };

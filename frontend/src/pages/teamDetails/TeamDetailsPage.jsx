@@ -7,6 +7,7 @@ import { TeamsContext } from "../../context/teams/teamsContext";
 import TdHeader from "../../components/teamDetails/header/TdHeader";
 import TdLogoAndBtns from "../../components/teamDetails/logoAndBtns/TdLogoAndBtns";
 import TdGeneralDetails from "../../components/teamDetails/generalDetails/TdGeneralDetails";
+import UpcomingGames from "../../components/teamDetails/upcomingGames/UpcomingGames";
 
 const TeamDetails = ({ match }) => {
   // context
@@ -14,6 +15,7 @@ const TeamDetails = ({ match }) => {
 
   // internal state
   const [currentTeamDetails, setCurrentTeamDetails] = useState({});
+  const [content, setContent] = useState("details");
 
   // get and toggle team details using id in match params
   const getAndToggleTeamDetails = useCallback(
@@ -28,10 +30,9 @@ const TeamDetails = ({ match }) => {
     [getTeamDetails, teamDetails]
   );
 
-  useEffect(
-    () => getAndToggleTeamDetails(match.params.id),
-    [getAndToggleTeamDetails, match]
-  );
+  useEffect(() => {
+    getAndToggleTeamDetails(match.params.id);
+  }, [getAndToggleTeamDetails, match]);
 
   return (
     <div className="details--container">
@@ -42,10 +43,17 @@ const TeamDetails = ({ match }) => {
         {/* container of two siblings */}
         <div className="flex--container">
           {/* logo & buttons container */}
-          <TdLogoAndBtns currentTeamDetails={currentTeamDetails} />
+          <TdLogoAndBtns
+            currentTeamDetails={currentTeamDetails}
+            setContent={setContent}
+          />
 
           {/* general details container */}
-          <TdGeneralDetails currentTeamDetails={currentTeamDetails} />
+          {content === "details" && (
+            <TdGeneralDetails currentTeamDetails={currentTeamDetails} />
+          )}
+
+          {content === "upcoming" && <UpcomingGames />}
         </div>
       </div>
     </div>

@@ -17,6 +17,7 @@ const Navbar = () => {
     localStorage.removeItem("isAuthorized");
     localStorage.removeItem("searched");
     localStorage.removeItem("teamDetails");
+    localStorage.removeItem("upcomingGames");
     history.push("/login");
   };
 

@@ -51,7 +51,11 @@ const getTeamCalendar = async (req, res) => {
         return res.json(error);
       }
 
-      return res.json(data);
+      const upcomingGames = data.filter(
+        (game) => new Date(game.startTime) >= currentTime
+      );
+
+      return res.json(upcomingGames);
     });
   } catch (error) {
     console.error("ERROR:", error.message);

@@ -1,5 +1,6 @@
 .logo--container {
   flex-basis: 40%;
+  width: 100%;
   display: flex;
   background: rgba(0, 0, 0, 0.2);
   flex-direction: column;
@@ -15,4 +16,10 @@
   width: 100%;
   height: 5rem;
   font-size: 1.5rem;
+}
+
+.logo--container img {
+  width: 100%;
+  min-width: 250px;
+  background: #fff;
 }

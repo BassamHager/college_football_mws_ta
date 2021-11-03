@@ -27,6 +27,8 @@ export const TeamsState = ({ children }) => {
   const [loadedTeams, setLoadedTeams] = useState([]);
   // state - to clear input on clicking main title to go homepage
   const [isClearInput, setIsClearInput] = useState(false);
+  // state - upcoming games
+  const [upcomingGames, setUpcomingGames] = useState([]);
 
   // update state
   const [state, dispatch] = useReducer(teamsReducer, initialState);
@@ -39,8 +41,6 @@ export const TeamsState = ({ children }) => {
   // fetch teams
   const getTeams = useCallback(async () => {
     try {
-      dispatch({ type: START_LOADING });
-
       const teams = await sendRequest(GET_TEAMS_URL, "GET", null, {
         Authorization:
           "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
@@ -85,8 +85,6 @@ export const TeamsState = ({ children }) => {
   const searchTeam = useCallback(
     (input) => {
       try {
-        dispatch({ type: START_LOADING });
-
         // get matching teams
         const matchingTeams = teams?.filter((team) =>
           team.school?.includes(input)
@@ -122,6 +120,35 @@ export const TeamsState = ({ children }) => {
     }
   };
 
+  // get team upcoming games
+  const getUpcomingGames = useCallback(
+    async (teamName) => {
+      try {
+        const upcomingGamesData = await sendRequest(
+          `http://localhost:4000/teams/${teamName}/calendar`,
+          "GET",
+          null,
+          {
+            Authorization:
+              "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
+          }
+        );
+
+        // save on local storage
+        localStorage.setItem(
+          "upcomingGames",
+          JSON.stringify(upcomingGamesData)
+        );
+
+        // update state
+        setUpcomingGames(upcomingGamesData);
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    [sendRequest]
+  );
+
   return (
     <TeamsContext.Provider
       value={{
@@ -143,6 +170,11 @@ export const TeamsState = ({ children }) => {
         searchedTeams,
         setIsClearInput,
         isClearInput,
+
+        // team games calendar
+        getUpcomingGames,
+        setUpcomingGames,
+        upcomingGames,
       }}
     >
       {children}

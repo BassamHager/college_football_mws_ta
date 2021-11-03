@@ -1,0 +1,5 @@
+.games--container {
+  padding: 5rem;
+  width: 100%;
+  flex-basis: 60%;
+}

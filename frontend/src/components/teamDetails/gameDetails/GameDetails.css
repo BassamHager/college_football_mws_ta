@@ -1,0 +1,22 @@
+.gd--container {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid var(--darkener-color);
+}
+
+.opponents {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.opponents:nth-child(1),
+.rest--details span {
+  color: var(--darkener-color);
+  text-shadow: none;
+}
+
+.rest--details {
+  display: grid;
+  justify-content: center;
+}
