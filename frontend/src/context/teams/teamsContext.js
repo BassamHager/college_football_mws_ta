@@ -1,6 +1,4 @@
 import { createContext, useCallback, useReducer, useState } from "react";
-// reducer
-import teamsReducer from "./teamsReducer";
 // types
 import {
   GET_TEAMS,
@@ -8,6 +6,8 @@ import {
   START_LOADING,
   SEARCH_TEAM,
 } from "../shared/types";
+// reducer
+import teamsReducer from "./teamsReducer";
 // context
 import { GET_TEAMS_URL } from "../../context/shared/constants";
 // hooks
@@ -18,22 +18,22 @@ export const TeamsContext = createContext();
 export const TeamsState = ({ children }) => {
   // state
   const initialState = {
-    teams: [], // filled by fetching api
+    teams: [], // filled onload by fetching api
     isLoading: false, // loading status
     teamDetails: {}, // details of clicked team card
     searchedTeams: [], // teams that search-input is included in their names
   };
+  const [state, dispatch] = useReducer(teamsReducer, initialState);
+  const { teams, teamDetails, searchedTeams } = state;
+
   // state - displayed teams on homepage load
   const [loadedTeams, setLoadedTeams] = useState([]);
   // state - to clear input on clicking main title to go homepage
   const [isClearInput, setIsClearInput] = useState(false);
   // state - upcoming games
   const [upcomingGames, setUpcomingGames] = useState([]);
-
-  // update state
-  const [state, dispatch] = useReducer(teamsReducer, initialState);
-  // destructure state
-  const { teams, teamDetails, searchedTeams } = state;
+  // state - previous games
+  const [previousGames, setPreviousGames] = useState([]);
 
   // hooks
   const { sendRequest } = useHttpClient();
@@ -120,11 +120,11 @@ export const TeamsState = ({ children }) => {
     }
   };
 
-  // get team upcoming games
-  const getUpcomingGames = useCallback(
+  // get team calendar
+  const getTeamCalender = useCallback(
     async (teamName) => {
       try {
-        const upcomingGamesData = await sendRequest(
+        const calendarData = await sendRequest(
           `http://localhost:4000/teams/${teamName}/calendar`,
           "GET",
           null,
@@ -134,19 +134,58 @@ export const TeamsState = ({ children }) => {
           }
         );
 
-        // save on local storage
-        localStorage.setItem(
-          "upcomingGames",
-          JSON.stringify(upcomingGamesData)
-        );
-
-        // update state
-        setUpcomingGames(upcomingGamesData);
+        return calendarData;
       } catch (error) {
         console.error(error.message);
       }
     },
     [sendRequest]
+  );
+
+  // get team upcoming games
+  const getUpcomingGames = useCallback(
+    async (teamName) => {
+      try {
+        const calendarData = await getTeamCalender(teamName);
+
+        const currentTime = new Date();
+        const upcomingGames = calendarData.filter(
+          (game) => new Date(game.startTime) >= currentTime
+        );
+
+        // // save on local storage
+        localStorage.setItem("upcomingGames", JSON.stringify(upcomingGames));
+
+        // // update state
+        setUpcomingGames(upcomingGames);
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    [getTeamCalender]
+  );
+
+  // get previous games
+  const getPreviousGames = useCallback(
+    async (teamName) => {
+      try {
+        const calendarData = await getTeamCalender(teamName);
+
+        const currentTime = new Date();
+        const previousGames = calendarData.filter(
+          (game) => new Date(game.startTime) <= currentTime
+        );
+
+        // // save on local storage
+        localStorage.setItem("previousGames", JSON.stringify(previousGames));
+
+        // // update state
+        setPreviousGames(previousGames);
+      } catch (error) {
+        console.error(error.message);
+      }
+    },
+    [getTeamCalender]
   );
 
   return (
@@ -171,10 +210,15 @@ export const TeamsState = ({ children }) => {
         setIsClearInput,
         isClearInput,
 
-        // team games calendar
+        // team upcoming games
         getUpcomingGames,
         setUpcomingGames,
         upcomingGames,
+
+        // team previous games
+        getPreviousGames,
+        setPreviousGames,
+        previousGames,
       }}
     >
       {children}

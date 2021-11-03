@@ -5,10 +5,10 @@ import { TeamsContext } from "../../../context/teams/teamsContext";
 
 const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
   // context
-  const { getUpcomingGames } = useContext(TeamsContext);
+  const { getUpcomingGames, getPreviousGames } = useContext(TeamsContext);
 
-  // get upcoming games
-  const getComingGames = useCallback(
+  // handle upcoming games
+  const handleComingGames = useCallback(
     (teamName) => {
       setContent("upcoming");
       getUpcomingGames(teamName);
@@ -16,11 +16,22 @@ const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
     [getUpcomingGames, setContent]
   );
 
+  // handle previous games
+  const handlePreviousGames = useCallback(
+    (teamName) => {
+      setContent("previous");
+      getPreviousGames(teamName);
+    },
+    [getPreviousGames, setContent]
+  );
+
   return (
     <div className="logo--container">
       <div className="details--buttons">
-        <button>previous games</button>
-        <button onClick={() => getComingGames(currentTeamDetails?.school)}>
+        <button onClick={() => handlePreviousGames(currentTeamDetails?.school)}>
+          previous games
+        </button>
+        <button onClick={() => handleComingGames(currentTeamDetails?.school)}>
           upcoming games
         </button>
       </div>

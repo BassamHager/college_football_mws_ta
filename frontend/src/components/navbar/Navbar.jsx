@@ -18,6 +18,7 @@ const Navbar = () => {
     localStorage.removeItem("searched");
     localStorage.removeItem("teamDetails");
     localStorage.removeItem("upcomingGames");
+    localStorage.removeItem("previousGames");
     history.push("/login");
   };
 

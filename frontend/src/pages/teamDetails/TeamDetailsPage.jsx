@@ -8,6 +8,7 @@ import TdHeader from "../../components/teamDetails/header/TdHeader";
 import TdLogoAndBtns from "../../components/teamDetails/logoAndBtns/TdLogoAndBtns";
 import TdGeneralDetails from "../../components/teamDetails/generalDetails/TdGeneralDetails";
 import UpcomingGames from "../../components/teamDetails/upcomingGames/UpcomingGames";
+import TdPreviousGames from "../../components/teamDetails/previousGames/TdPreviousGames";
 
 const TeamDetails = ({ match }) => {
   // context
@@ -48,12 +49,13 @@ const TeamDetails = ({ match }) => {
             setContent={setContent}
           />
 
-          {/* general details container */}
+          {/* one only of the three components below will be displayed */}
           {content === "details" && (
             <TdGeneralDetails currentTeamDetails={currentTeamDetails} />
           )}
 
           {content === "upcoming" && <UpcomingGames />}
+          {content === "previous" && <TdPreviousGames />}
         </div>
       </div>
     </div>
