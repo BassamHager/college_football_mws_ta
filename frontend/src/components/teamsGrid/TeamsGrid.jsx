@@ -1,13 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 // components
 import TeamCard from "../../components/teamCard/TeamCard";
+import Spinner from "../spinner/Spinner";
 // context
 import { TeamsContext } from "../../context/teams/teamsContext";
 import "./TeamsGrid.css";
 
 const TeamsGrid = ({ match }) => {
   // context
-  const { loadedTeams } = useContext(TeamsContext);
+  const { loadedTeams, isLoading } = useContext(TeamsContext);
 
   // internal state
   const [currentTeams, setCurrentTeams] = useState([]);
@@ -25,11 +26,15 @@ const TeamsGrid = ({ match }) => {
   }, [loadedTeams, match]);
 
   return (
-    <div className="teams--grid">
-      {currentTeams?.map(({ id, school, logos }) => (
-        <TeamCard key={id} id={id} school={school} logo={logos && logos[0]} />
-      ))}
-    </div>
+    <>
+      {isLoading && <Spinner />}
+
+      <div className="teams--grid">
+        {currentTeams?.map(({ id, school, logos }) => (
+          <TeamCard key={id} id={id} school={school} logo={logos && logos[0]} />
+        ))}
+      </div>
+    </>
   );
 };
 

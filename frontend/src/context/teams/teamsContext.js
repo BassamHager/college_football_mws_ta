@@ -38,7 +38,7 @@ export const TeamsState = ({ children }) => {
   const [gameStats, setGameStats] = useState({});
 
   // hooks
-  const { sendRequest } = useHttpClient();
+  const { sendRequest, isLoading } = useHttpClient();
 
   // fetch teams
   const getTeams = useCallback(async () => {
@@ -51,11 +51,8 @@ export const TeamsState = ({ children }) => {
       // save on local storage
       localStorage.setItem("fetchedTeams", JSON.stringify(teams));
 
-      dispatch({ type: GET_TEAMS, payload: teams });
-
       // update state
-      setLoadedTeams(teams?.slice(0, 6));
-      // setLoadedTeams(teams);
+      dispatch({ type: GET_TEAMS, payload: teams });
     } catch (error) {
       console.error(error.message);
     }
@@ -261,6 +258,9 @@ export const TeamsState = ({ children }) => {
         getGameStats,
         setGameStats,
         gameStats,
+
+        // loading status
+        isLoading,
       }}
     >
       {children}
