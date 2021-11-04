@@ -205,9 +205,9 @@ export const TeamsState = ({ children }) => {
         );
 
         // get clicked game stats
-        const gameStats = teamGamesData?.filter(
-          (game) => Number(game.id) === id
-        )[0];
+        const gameStats =
+          teamGamesData &&
+          teamGamesData.filter((game) => Number(game.id) === id)[0];
 
         // save on local storage
         localStorage.setItem("gameStats", JSON.stringify(gameStats));

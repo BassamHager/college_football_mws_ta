@@ -19,6 +19,7 @@ const Navbar = () => {
     localStorage.removeItem("teamDetails");
     localStorage.removeItem("upcomingGames");
     localStorage.removeItem("previousGames");
+    localStorage.removeItem("gameStats");
     history.push("/login");
   };
 
