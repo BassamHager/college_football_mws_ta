@@ -1,0 +1,35 @@
+.gd--container {
+  text-align: left;
+  padding: 1rem;
+  border-bottom: 1px solid var(--darkener-color);
+  margin-bottom: 1rem;
+}
+
+.opponents {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.opponents:nth-child(1),
+.rest--details span {
+  color: var(--darkener-color);
+  text-shadow: none;
+}
+
+.rest--details {
+  display: grid;
+  justify-content: center;
+}
+
+.previous--game .gd--container {
+  /* background: var(--darkener-color); */
+  box-shadow: 0 4px 8px var(--darkener-color);
+  cursor: pointer;
+}
+
+.previous--game .gd--container:hover {
+  background: var(--main-color);
+  cursor: pointer;
+  transition: all 0.5s ease-in-out;
+}

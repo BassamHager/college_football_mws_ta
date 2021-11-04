@@ -1,15 +1,9 @@
-// import { useContext, useState } from "react";
 import "./TdHeader.css";
 import { useHistory } from "react-router-dom";
-// context
-// import { TeamsContext } from "../../context/teams/teamsContext";
 // components
 import Button from "../../shared/UI/button/Button";
 
 const TdHeader = ({ currentTeamDetails }) => {
-  // context
-  // const { getTeamDetails, teamDetails } = useContext(TeamsContext);
-
   // history
   const history = useHistory();
 

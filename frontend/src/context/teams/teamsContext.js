@@ -34,6 +34,8 @@ export const TeamsState = ({ children }) => {
   const [upcomingGames, setUpcomingGames] = useState([]);
   // state - previous games
   const [previousGames, setPreviousGames] = useState([]);
+  // state - previous games
+  const [gameStats, setGameStats] = useState({});
 
   // hooks
   const { sendRequest } = useHttpClient();
@@ -136,7 +138,7 @@ export const TeamsState = ({ children }) => {
 
         return calendarData;
       } catch (error) {
-        console.error(error.message);
+        console.error("ERROR: ", error.message);
       }
     },
     [sendRequest]
@@ -159,7 +161,7 @@ export const TeamsState = ({ children }) => {
         // // update state
         setUpcomingGames(upcomingGames);
       } catch (error) {
-        console.error(error.message);
+        console.error("ERROR: ", error.message);
       }
     },
     [getTeamCalender]
@@ -182,10 +184,41 @@ export const TeamsState = ({ children }) => {
         // // update state
         setPreviousGames(previousGames);
       } catch (error) {
-        console.error(error.message);
+        console.error("ERROR: ", error.message);
       }
     },
     [getTeamCalender]
+  );
+
+  // get game details
+  const getGameStats = useCallback(
+    async (year, teamName, id) => {
+      try {
+        const teamGamesData = await sendRequest(
+          `http://localhost:4000/teams/${teamName}/gamestats/${year}`,
+          "GET",
+          null,
+          {
+            Authorization:
+              "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
+          }
+        );
+
+        // get clicked game stats
+        const gameStats = teamGamesData?.filter(
+          (game) => Number(game.id) === id
+        )[0];
+
+        // save on local storage
+        localStorage.setItem("gameStats", JSON.stringify(gameStats));
+
+        // update state
+        setGameStats(gameStats);
+      } catch (error) {
+        console.error("ERROR: ", error.message);
+      }
+    },
+    [sendRequest]
   );
 
   return (
@@ -219,6 +252,11 @@ export const TeamsState = ({ children }) => {
         getPreviousGames,
         setPreviousGames,
         previousGames,
+
+        // game stats
+        getGameStats,
+        setGameStats,
+        gameStats,
       }}
     >
       {children}

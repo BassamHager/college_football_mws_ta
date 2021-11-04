@@ -1,0 +1,11 @@
+.gts--container {
+  flex-basis: 50%;
+  padding-bottom: 2rem;
+}
+
+.gts--container h4 span {
+  color: var(--darkener-color);
+  text-shadow: none;
+  display: block;
+  margin: 2rem 0 0.5rem;
+}

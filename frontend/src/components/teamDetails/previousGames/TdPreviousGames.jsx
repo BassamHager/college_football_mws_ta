@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import "./TdPreviousGames.css";
 // context
 import { TeamsContext } from "../../../context/teams/teamsContext";
-import GameDetails from "../gameDetails/GameDetails";
+import GameDetailsCard from "../gameDetailsCard/GameDetailsCard";
 
-const TdPreviousGames = () => {
+const TdPreviousGames = ({ setContent }) => {
   // context
   const { previousGames } = useContext(TeamsContext);
 
@@ -19,9 +19,13 @@ const TdPreviousGames = () => {
   }, [setCurrentPreviousGames, previousGames]);
 
   return (
-    <div className="games--container">
+    <div className="games--container previous--game">
       {currentPreviousGames?.map((game, i) => (
-        <GameDetails key={game.startTime + i} game={game} />
+        <GameDetailsCard
+          key={game.startTime + i}
+          game={game}
+          setContent={setContent}
+        />
       ))}
 
       {!currentPreviousGames ||

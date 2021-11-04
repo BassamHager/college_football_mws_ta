@@ -75,6 +75,7 @@ const getTeamGameStats = async (req, res) => {
           "Something went wrong, could not fetch team game stats",
           404
         );
+
         return res.json(error);
       }
 

@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import "./UpcomingGames.css";
 // context
 import { TeamsContext } from "../../../context/teams/teamsContext";
-import GameDetails from "../gameDetails/GameDetails";
+import GameDetailsCard from "../gameDetailsCard/GameDetailsCard";
 
 const UpcomingGames = () => {
   // context
@@ -21,7 +21,7 @@ const UpcomingGames = () => {
   return (
     <div className="games--container">
       {currentUpcomingGames?.map((game) => (
-        <GameDetails key={game.id} game={game} />
+        <GameDetailsCard key={game.id} game={game} />
       ))}
 
       {!currentUpcomingGames ||
