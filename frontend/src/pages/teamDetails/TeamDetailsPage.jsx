@@ -7,7 +7,7 @@ import { TeamsContext } from "../../context/teams/teamsContext";
 import TdHeader from "../../components/teamDetails/header/TdHeader";
 import TdLogoAndBtns from "../../components/teamDetails/logoAndBtns/TdLogoAndBtns";
 import TdGeneralDetails from "../../components/teamDetails/generalDetails/TdGeneralDetails";
-import UpcomingGames from "../../components/teamDetails/upcomingGames/UpcomingGames";
+import TdUpcomingGames from "../../components/teamDetails/upcomingGames/TdUpcomingGames";
 import TdPreviousGames from "../../components/teamDetails/previousGames/TdPreviousGames";
 import GameDetails from "../../components/teamDetails/gameDetails/GameDetails";
 
@@ -54,7 +54,7 @@ const TeamDetails = ({ match }) => {
           {content === "details" && (
             <TdGeneralDetails currentTeamDetails={currentTeamDetails} />
           )}
-          {content === "upcoming" && <UpcomingGames />}
+          {content === "upcoming" && <TdUpcomingGames />}
           {content === "previous" && (
             <TdPreviousGames setContent={setContent} />
           )}

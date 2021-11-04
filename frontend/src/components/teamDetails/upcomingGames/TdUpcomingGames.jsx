@@ -1,10 +1,10 @@
 import { useContext, useEffect, useState } from "react";
-import "./UpcomingGames.css";
+import "./TdUpcomingGames.css";
 // context
 import { TeamsContext } from "../../../context/teams/teamsContext";
 import GameDetailsCard from "../gameDetailsCard/GameDetailsCard";
 
-const UpcomingGames = () => {
+const TdUpcomingGames = () => {
   // context
   const { upcomingGames } = useContext(TeamsContext);
 
@@ -30,4 +30,4 @@ const UpcomingGames = () => {
   );
 };
 
-export default UpcomingGames;
+export default TdUpcomingGames;

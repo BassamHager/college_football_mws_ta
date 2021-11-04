@@ -18,7 +18,7 @@ const App = () => (
         <Route exact path="/searched/:name" component={HomePage} />
         <Route component={RedirectHome} />
       </Switch>
-      {/* footer */}
+
       <Footer />
     </Router>
   </div>

@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import "./HomePage.css";
 // components
 import Navbar from "../../components/navbar/Navbar";
 import Pagination from "../../components/pagination/Pagination";
@@ -7,7 +8,6 @@ import SearchBar from "../../components/searchBar/SearchBar";
 import TeamsGrid from "../../components/teamsGrid/TeamsGrid";
 // context
 import { TeamsContext } from "../../context/teams/teamsContext";
-import "./HomePage.css";
 
 const HomePage = ({ match }) => {
   // history

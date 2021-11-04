@@ -13,12 +13,13 @@
 
 .footer-basic li {
   padding: 0 1rem;
-  color: var(--dark-secondary-color);
+  color: var(--darkener-color);
 }
 
 .footer-basic ul a {
-  text-shadow: 0.5px 0.5px var(--darkener-color);
+  /* text-shadow: 0.5px 0.5px var(--darkener-color); */
   text-decoration: none;
+  color: var(--darkener-color);
   opacity: 0.8;
 }
 
