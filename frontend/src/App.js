@@ -6,6 +6,7 @@ import HomePage from "./pages/home/HomePage";
 import LoginPage from "./pages/login/LoginPage";
 import TeamDetails from "./pages/teamDetails/TeamDetailsPage";
 import RedirectHome from "./pages/RedirectHome/AutoRedirect";
+import Footer from "./components/footer/Footer";
 
 const App = () => (
   <div className="App">
@@ -17,6 +18,8 @@ const App = () => (
         <Route exact path="/searched/:name" component={HomePage} />
         <Route component={RedirectHome} />
       </Switch>
+      {/* footer */}
+      <Footer />
     </Router>
   </div>
 );
