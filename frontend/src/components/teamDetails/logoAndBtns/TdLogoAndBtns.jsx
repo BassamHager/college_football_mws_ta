@@ -34,6 +34,7 @@ const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
         <button onClick={() => handleComingGames(currentTeamDetails?.school)}>
           upcoming games
         </button>
+        <button onClick={() => setContent("details")}>team details</button>
       </div>
 
       <img
@@ -43,7 +44,6 @@ const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
         }
         alt={currentTeamDetails?.school}
       />
-      <button onClick={() => setContent("details")}>team details</button>
     </div>
   );
 };

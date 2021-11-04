@@ -29,3 +29,11 @@
   display: grid;
   place-items: center;
 }
+
+@media screen and (max-width: 690px) {
+  .button--back {
+    position: absolute;
+    top: 12.5rem;
+    right: 1rem;
+  }
+}

@@ -23,3 +23,24 @@
   min-width: 250px;
   background: #fff;
 }
+
+@media screen and (max-width: 690px) {
+  .logo--container {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .details--buttons {
+    flex-basis: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo--container button {
+    height: 100%;
+  }
+
+  .logo--container img {
+    width: 50%;
+  }
+}
