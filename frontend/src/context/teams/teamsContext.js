@@ -90,7 +90,7 @@ export const TeamsState = ({ children }) => {
       try {
         // get matching teams
         const matchingTeams = teams?.filter((team) =>
-          team.school?.includes(input)
+          team.school?.toLowerCase().includes(input.toLowerCase())
         );
 
         // save on local storage
