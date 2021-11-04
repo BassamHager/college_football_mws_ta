@@ -65,9 +65,7 @@ export const TeamsState = ({ children }) => {
         dispatch({ type: START_LOADING });
 
         // get team data by its id
-        const clickedTeam = loadedTeams?.filter(
-          (team) => team.id === Number(id)
-        )[0];
+        const clickedTeam = teams?.filter((team) => team.id === Number(id))[0];
 
         if (clickedTeam) {
           // save on local storage
@@ -75,7 +73,7 @@ export const TeamsState = ({ children }) => {
 
           // update state
           dispatch({ type: GET_TEAM_DETAILS, payload: clickedTeam });
-        }
+        } else throw new Error("Clicked team details not found!");
         // end loading - todo
       } catch (error) {
         console.error(error.message);

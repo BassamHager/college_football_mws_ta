@@ -27,6 +27,7 @@ const SearchBar = () => {
 
         // validate input
         if (searchInput === "")
+          // todo display
           throw new Error("Empty input, please enter a team name");
         else searchTeam(searchInput);
 

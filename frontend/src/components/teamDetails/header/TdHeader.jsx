@@ -16,7 +16,13 @@ const TdHeader = ({ currentTeamDetails }) => {
       </h2>
 
       {/* go back button */}
-      <Button className="button--back" onClick={() => history.goBack()}>
+      <Button
+        className="button--back"
+        onClick={() => {
+          localStorage.removeItem("teamDetails");
+          history.goBack();
+        }}
+      >
         Back <i className="fas fa-arrow-left"></i>
       </Button>
     </div>
