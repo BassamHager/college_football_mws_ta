@@ -1,62 +1,45 @@
-import { useCallback, useContext, useState } from "react";
 import "./Pagination.css";
-import ReactPaginate from "react-paginate";
-
-// context
+// components
+import Button from "../shared/UI/button/Button";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { TeamsContext } from "../../context/teams/teamsContext";
 
 const Pagination = () => {
   // context
   const { teams, setLoadedTeams } = useContext(TeamsContext);
 
-  // pagination state
-  const teamsPerPage = 10;
-  const pageCount = Math.ceil(teams?.length / teamsPerPage);
-  const [clickedPageNum, setClickedPageNum] = useState(0);
-  const firstIndexInPage = teamsPerPage * clickedPageNum;
-  const lastIndexInPage = firstIndexInPage + teamsPerPage;
+  // internal state
+  const teamsPerPage = 6;
+  const [currentPage, setCurrentPage] = useState(1);
+  const lastIndexInPage = currentPage * teamsPerPage;
+  const firstIndexInPage = lastIndexInPage - teamsPerPage;
+
+  const pageNumbers = [];
+
+  for (let i = 1; i <= Math.ceil(teams?.length / teamsPerPage); i++)
+    pageNumbers.push(i);
 
   // change page
   const paginate = useCallback(
-    (e) => {
-      // update clicked page num
-      setClickedPageNum(e.selected + 1);
-      console.log(e.selected + 1);
-
-      // update displayed teams
-      setLoadedTeams(teams?.slice(firstIndexInPage, lastIndexInPage));
+    (pageNumber) => {
+      setCurrentPage(pageNumber);
     },
-    [
-      setClickedPageNum,
-      setLoadedTeams,
-      teams,
-      firstIndexInPage,
-      lastIndexInPage,
-    ]
+    [setCurrentPage]
+  );
+
+  useEffect(
+    () => setLoadedTeams(teams.slice(firstIndexInPage, lastIndexInPage)),
+    [teams, firstIndexInPage, lastIndexInPage, setLoadedTeams]
   );
 
   return (
-    <ReactPaginate
-      pageCount={pageCount}
-      marginPagesDisplayed={3}
-      // change page
-      onPageChange={(e) => paginate(e)}
-      // buttons text
-      previousLabel={"previous"}
-      nextLabel={"next"}
-      breakLabel={"..."}
-      // style
-      containerClassName={"pagination--container"}
-      previousClassName={"button--container"}
-      previousLinkClassName={"page--button "}
-      nextClassName={"button--container"}
-      nextLinkClassName={"page--button"}
-      pageClassName={"button--container"}
-      pageLinkClassName={"page--button "}
-      breakClassName={"button--container"}
-      breakLinkClassName={"page--button"}
-      activeClassName={"selected "}
-    />
+    <nav className="pagination--container">
+      {pageNumbers.map((pageNum) => (
+        <Button key={pageNum} onClick={() => paginate(pageNum)}>
+          {pageNum}
+        </Button>
+      ))}
+    </nav>
   );
 };
 

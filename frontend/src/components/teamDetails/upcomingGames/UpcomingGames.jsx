@@ -20,8 +20,8 @@ const UpcomingGames = () => {
 
   return (
     <div className="games--container">
-      {currentUpcomingGames?.map((game) => (
-        <GameDetailsCard key={game.id} game={game} />
+      {currentUpcomingGames?.map((game, i) => (
+        <GameDetailsCard key={game.id + i} game={game} />
       ))}
 
       {!currentUpcomingGames ||

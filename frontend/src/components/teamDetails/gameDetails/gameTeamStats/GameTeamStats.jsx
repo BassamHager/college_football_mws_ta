@@ -23,6 +23,10 @@ const GameTeamStats = ({ team }) => {
       </h4>
 
       <div className="stats">
+        <h4>
+          <span>game stats</span>
+          <hr />
+        </h4>
         {team?.stats?.map((stat, i) => (
           <GtsCategory key={stat?.category + i} stat={stat} />
         ))}

@@ -14,14 +14,15 @@ const TeamsGrid = ({ match }) => {
 
   // toggle display according to match.url
   useEffect(() => {
-    if (match.url === "/") setCurrentTeams(loadedTeams);
-    else {
+    if (match.url === "/") {
+      setCurrentTeams(loadedTeams);
+    } else {
       const storedTeams = localStorage.getItem("searched");
-      let teams;
-      if (storedTeams) teams = JSON.parse(storedTeams);
+      const teams = JSON.parse(storedTeams);
+
       setCurrentTeams(teams?.length > 0 ? teams : []);
     }
-  }, [setCurrentTeams, loadedTeams, match]);
+  }, [loadedTeams, match]);
 
   return (
     <div className="teams--grid">

@@ -48,10 +48,14 @@ export const TeamsState = ({ children }) => {
           "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
       });
 
+      // save on local storage
+      localStorage.setItem("fetchedTeams", JSON.stringify(teams));
+
       dispatch({ type: GET_TEAMS, payload: teams });
 
-      // onload displayed teams
-      setLoadedTeams(teams?.length > 9 ? teams?.slice(0, 10) : []);
+      // update state
+      setLoadedTeams(teams?.slice(0, 6));
+      // setLoadedTeams(teams);
     } catch (error) {
       console.error(error.message);
     }
