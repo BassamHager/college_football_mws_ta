@@ -9,7 +9,7 @@ import {
 // reducer
 import teamsReducer from "./teamsReducer";
 // context
-import { GET_TEAMS_URL } from "../../context/shared/constants";
+import { BASE_URL, API_KEY } from "../../context/shared/constants";
 // hooks
 import { useHttpClient } from "../../util/httpHook";
 
@@ -43,9 +43,8 @@ export const TeamsState = ({ children }) => {
   // fetch teams
   const getTeams = useCallback(async () => {
     try {
-      const teams = await sendRequest(GET_TEAMS_URL, "GET", null, {
-        Authorization:
-          "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
+      const teams = await sendRequest(BASE_URL, "GET", null, {
+        Authorization: API_KEY,
       });
 
       // save on local storage
@@ -79,7 +78,7 @@ export const TeamsState = ({ children }) => {
         console.error(error.message);
       }
     },
-    [loadedTeams]
+    [teams]
   );
 
   // search team
@@ -126,12 +125,11 @@ export const TeamsState = ({ children }) => {
     async (teamName) => {
       try {
         const calendarData = await sendRequest(
-          `http://localhost:4000/teams/${teamName}/calendar`,
+          `${BASE_URL}/teams/${teamName}/calendar`,
           "GET",
           null,
           {
-            Authorization:
-              "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
+            Authorization: API_KEY,
           }
         );
 
@@ -194,12 +192,11 @@ export const TeamsState = ({ children }) => {
     async (year, teamName, id) => {
       try {
         const teamGamesData = await sendRequest(
-          `http://localhost:4000/teams/${teamName}/gamestats/${year}`,
+          `${BASE_URL}/teams/${teamName}/gamestats/${year}`,
           "GET",
           null,
           {
-            Authorization:
-              "Bearer S3jwPbEIdMnpNZfs06X90rM4jraUNbtCQ+g0t7t+pdDKqaiNVrc2eLEXdEeX5hhS",
+            Authorization: API_KEY,
           }
         );
 
