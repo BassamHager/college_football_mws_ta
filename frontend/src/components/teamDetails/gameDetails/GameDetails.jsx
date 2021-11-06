@@ -13,9 +13,11 @@ const GameDetails = ({ setContent }) => {
   const [currentGameStats, setCurrentGameStats] = useState({});
 
   useEffect(() => {
-    const storedStats = localStorage.getItem("gameStats");
-    const parsedStats = JSON.parse(storedStats);
-    setCurrentGameStats(parsedStats ? parsedStats : gameStats);
+    if (gameStats !== undefined) {
+      const storedStats = localStorage.getItem("gameStats");
+
+      setCurrentGameStats(storedStats ? JSON.parse(storedStats) : gameStats);
+    }
   }, [gameStats]);
 
   return (

@@ -79,7 +79,7 @@ $ npm run start
 
 #### Backend
 
-_Create the backend is necessary to create a **middleware** helps the http requests to **prevent** the Cross-Origin Resource Sharing (**CORS**)_
+_Creating the backend is necessary to create a **middleware** helps the http requests to **prevent** the Cross-Origin Resource Sharing (**CORS**)_
 
 - Read the API Docs, get the endpoints needed & how to use the recommended library (**cfb.js**) that supports JavaScript.
 - Install the packages needed.
@@ -101,7 +101,7 @@ _Create the backend is necessary to create a **middleware** helps the http reque
 
 - JavaScript (React)
 - Node.js (Express)
-- RESTful AIP HTTP request
+- RESTful API HTTP request
 - DB - per client only (local storage)
 
 ### Dependencies

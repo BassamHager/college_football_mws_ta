@@ -26,10 +26,11 @@ const SearchBar = () => {
         localStorage.removeItem("searched");
 
         // validate input
-        if (searchInput === "")
-          // todo display
-          throw new Error("Empty input, please enter a team name");
-        else searchTeam(searchInput);
+        if (searchInput === "") {
+          localStorage.removeItem("searched");
+          setIsClearInput(true);
+          history.push("/");
+        } else searchTeam(searchInput);
 
         // redirect to /searched & update homepage team cards
         const teams = localStorage.getItem("searched");
@@ -38,7 +39,7 @@ const SearchBar = () => {
         console.error(error.message);
       }
     },
-    [searchTeam, searchInput, history]
+    [searchTeam, searchInput, history, setIsClearInput]
   );
 
   // clear input & reset the clearing boolean to false

@@ -21,7 +21,7 @@ const TdUpcomingGames = () => {
   return (
     <div className="games--container">
       {currentUpcomingGames?.map((game, i) => (
-        <GameDetailsCard key={game.id + i} game={game} />
+        <GameDetailsCard key={game.id + i} game={game} disableClick />
       ))}
 
       {!currentUpcomingGames ||

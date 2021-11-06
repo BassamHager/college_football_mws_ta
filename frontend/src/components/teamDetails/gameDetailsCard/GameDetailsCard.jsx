@@ -2,18 +2,22 @@ import { useContext } from "react";
 import { TeamsContext } from "../../../context/teams/teamsContext";
 import "./GameDetailsCard.css";
 
-const GameDetails = ({ game, setContent }) => {
+const GameDetails = ({ game, setContent, disableClick }) => {
   // context
   const { getGameStats } = useContext(TeamsContext);
 
+  const clickPrevious = () => {
+    if (!disableClick) {
+      getGameStats(game?.season, game?.homeTeam, game?.id);
+      setContent("gameDetails");
+    }
+  };
   return (
     <div
       key={game?.id}
       className="gd--container"
-      onClick={() => {
-        getGameStats(game?.season, game?.homeTeam, game?.id);
-        setContent("gameDetails");
-      }}
+      disabled={disableClick}
+      onClick={clickPrevious}
     >
       <div className="opponents">
         <h3>Home</h3>

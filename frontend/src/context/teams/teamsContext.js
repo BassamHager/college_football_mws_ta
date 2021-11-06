@@ -72,8 +72,7 @@ export const TeamsState = ({ children }) => {
 
           // update state
           dispatch({ type: GET_TEAM_DETAILS, payload: clickedTeam });
-        } else throw new Error("Clicked team details not found!");
-        // end loading - todo
+        }
       } catch (error) {
         console.error(error.message);
       }
