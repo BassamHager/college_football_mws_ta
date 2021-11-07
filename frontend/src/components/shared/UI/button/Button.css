@@ -1,14 +1,23 @@
 .button {
   font: inherit;
   padding: 0.5rem 1.5rem;
-  border: 1px solid var(--darkener-color);
+  border: 1px solid transparent;
   border-radius: 4px;
   background: var(--main-color);
   color: white;
   cursor: pointer;
-  margin-right: 1rem;
   text-decoration: none;
   display: inline-block;
+  margin: 0 1rem;
+}
+
+.button--back {
+  padding: 1rem !important;
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50% !important;
+  display: grid;
+  place-items: center;
 }
 
 .button:focus {
@@ -17,11 +26,11 @@
 
 .button:hover,
 .button:active {
-  background: var(--vivid-color);
-  border-color: var(--dark-secondary-color);
+  background: var(--theme-color);
   transition: all 0.5s ease-in-out;
   transition: all 0.5s ease-in-out;
   transform: scale(0.95);
+  color: #000;
 }
 
 .button--inverse {

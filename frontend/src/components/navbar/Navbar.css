@@ -7,17 +7,16 @@
   background: #fff;
 }
 
-.navbar a:hover {
+.navbar a {
   color: var(--main-color);
-  letter-spacing: 0.1rem;
+}
+
+.navbar a:hover {
+  color: var(--theme-color);
   transition: all 0.3s ease-in-out;
 }
 
-.button--logout {
-  width: 7rem;
-  height: 7rem;
-  border-radius: 50% !important;
-  padding: 1rem !important;
-  display: grid;
-  place-items: center;
+.button--logout:hover {
+  background: var(--theme-color);
+  color: #000;
 }

@@ -3,6 +3,7 @@
   padding: 1rem 2rem;
   font-size: max(2rem, 1.5vw);
   text-align: left;
+  color: #333;
 }
 
 .field--info {

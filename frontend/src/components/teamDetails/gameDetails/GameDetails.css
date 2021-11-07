@@ -1,5 +1,6 @@
 .game--details--container {
   flex-basis: 60%;
+  padding: 1rem 2rem;
 }
 
 .game--details--container button {

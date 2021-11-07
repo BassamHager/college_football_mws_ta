@@ -15,6 +15,7 @@ const Navbar = () => {
   // logout
   const logout = () => {
     localStorage.removeItem("isAuthorized");
+    localStorage.removeItem("fetchedTeams");
     localStorage.removeItem("searched");
     localStorage.removeItem("teamDetails");
     localStorage.removeItem("upcomingGames");
@@ -30,7 +31,7 @@ const Navbar = () => {
         <h1>College Football MWS</h1>
       </Link>
 
-      <Button className="button--logout" onClick={logout}>
+      <Button className="button--back" onClick={logout}>
         Logout <i className="fas fa-sign-out-alt"></i>
       </Button>
     </nav>

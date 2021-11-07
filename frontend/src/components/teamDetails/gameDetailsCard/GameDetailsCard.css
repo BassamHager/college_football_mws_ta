@@ -3,6 +3,8 @@
   padding: 1rem;
   border-bottom: 1px solid var(--darkener-color);
   margin-bottom: 1rem;
+  background: var(--fourth-color);
+  min-width: 36rem;
 }
 
 .opponents {
@@ -23,7 +25,6 @@
 }
 
 .previous--game .gd--container {
-  /* background: var(--darkener-color); */
   box-shadow: 0 4px 8px var(--darkener-color);
   cursor: pointer;
 }
@@ -31,5 +32,7 @@
 .previous--game .gd--container:hover {
   background: var(--main-color);
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  transform: scale(1.05);
+  background: var(--secondary-color);
 }

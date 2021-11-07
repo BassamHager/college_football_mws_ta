@@ -2,6 +2,8 @@ import { useCallback, useContext } from "react";
 import "./TdLogoAndBtns.css";
 // context
 import { TeamsContext } from "../../../context/teams/teamsContext";
+// components
+import Button from "../../shared/UI/button/Button";
 
 const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
   // context
@@ -28,13 +30,13 @@ const TdLogoAndBtns = ({ currentTeamDetails, setContent }) => {
   return (
     <div className="logo--container">
       <div className="details--buttons">
-        <button onClick={() => handlePreviousGames(currentTeamDetails?.school)}>
+        <Button onClick={() => handlePreviousGames(currentTeamDetails?.school)}>
           previous games
-        </button>
-        <button onClick={() => handleComingGames(currentTeamDetails?.school)}>
+        </Button>
+        <Button onClick={() => handleComingGames(currentTeamDetails?.school)}>
           upcoming games
-        </button>
-        <button onClick={() => setContent("details")}>team details</button>
+        </Button>
+        <Button onClick={() => setContent("details")}>team details</Button>
       </div>
 
       <img

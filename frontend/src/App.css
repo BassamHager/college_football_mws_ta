@@ -1,16 +1,10 @@
 :root {
-  --main-color: #5680e9;
-  --theme-color: #84ceeb;
-  --secondary-color: #8860d0;
-  --dark-secondary-color: purple;
+  --theme-color: #9aadf4;
+  --main-color: #728ceb;
+  --secondary-color: #ffc746;
+  --third-color: #ffd26a;
+  --fourth-color: #ffde94;
   --darkener-color: rgba(0, 0, 0, 0.5);
-  --vivid-color: linear-gradient(
-      217deg,
-      rgba(255, 0, 0, 0.8),
-      rgba(255, 0, 0, 0) 70.71%
-    ),
-    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
-    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 }
 
 * {
@@ -26,7 +20,7 @@ html {
 }
 
 body {
-  background: #333;
+  background: #fff;
   font-size: 1.6rem; /* 16px */
   text-align: center;
 }

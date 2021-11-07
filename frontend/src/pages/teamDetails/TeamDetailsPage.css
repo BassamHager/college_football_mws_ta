@@ -1,19 +1,20 @@
 .details--container {
   min-height: 100vh;
-  background: var(--main-color);
   width: 100%;
-  color: #fff;
-  text-shadow: 1px 2px #000;
+  color: #000;
+  font-weight: 100;
 }
 
 .flex--container {
   display: flex;
   flex-wrap: wrap;
-  background: var(--darkener-color);
+  background: #b9d5e0;
+  background: var(--third-color);
+  border: 1px solid var(--third-color);
 }
 
-@media screen and (max-width: 690px) {
+@media screen and (max-width: 960px) {
   .flex--container {
-    flex-direction: column;
+    justify-content: center;
   }
 }

@@ -13,10 +13,8 @@
 
 .card:hover {
   cursor: pointer;
-  transform: scale(0.95);
   transition: all 0.3s ease-in-out;
   box-shadow: 0 8px 14px rgba(0, 0, 0, 0.5);
-  border: 5px outset var(--main-color);
   font-size: 2rem;
 }
 

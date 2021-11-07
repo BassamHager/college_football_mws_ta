@@ -16,12 +16,20 @@ const TdGeneralDetails = ({ currentTeamDetails }) => (
       <span>division</span>
       <span> {currentTeamDetails?.division || "unknown"} </span>
     </div>
-    <div className="field--info color">
+    <div className="field--info">
       <span>color </span>
-      <span style={{ background: currentTeamDetails?.color }}>
-        {" "}
-        {currentTeamDetails?.color || "unknown"}
-      </span>
+      <span
+        style={{
+          background: currentTeamDetails?.color,
+          minWidth: "2rem",
+          width: "10rem",
+          display: "inline-block",
+          height: "20px",
+          border: "1px solid black",
+          marginRight: "1rem",
+        }}
+      ></span>
+      {currentTeamDetails?.color || "unknown"}
     </div>
     <div className="field--info">
       <span>alt_color </span>

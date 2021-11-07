@@ -4,6 +4,7 @@ import "./GameDetails.css";
 import { TeamsContext } from "../../../context/teams/teamsContext";
 // components
 import GameTeamStats from "./gameTeamStats/GameTeamStats";
+import Button from "../../shared/UI/button/Button";
 
 const GameDetails = ({ setContent }) => {
   // context
@@ -15,14 +16,17 @@ const GameDetails = ({ setContent }) => {
   useEffect(() => {
     if (gameStats !== undefined) {
       const storedStats = localStorage.getItem("gameStats");
+      const parsed = JSON.parse(storedStats);
 
-      setCurrentGameStats(storedStats ? JSON.parse(storedStats) : gameStats);
+      setCurrentGameStats(parsed ? parsed : gameStats);
     }
   }, [gameStats]);
 
   return (
     <div className="game--details--container">
-      <button onClick={() => setContent("previous")}>back</button>
+      <Button onClick={() => setContent("previous")}>
+        back to previous games
+      </Button>
 
       <div className="teams">
         <GameTeamStats

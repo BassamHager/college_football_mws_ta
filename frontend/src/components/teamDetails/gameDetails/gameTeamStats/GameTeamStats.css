@@ -4,7 +4,7 @@
 }
 
 .gts--container h4 span {
-  color: var(--secondary-color);
+  color: var(--darkener-color);
   text-shadow: none;
   display: block;
   margin: 2rem 0 0.5rem;
