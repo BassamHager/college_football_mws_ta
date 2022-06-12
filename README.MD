@@ -6,8 +6,8 @@ Link...
 
 ### Demo
 
-![homepage - upper part](./src/assets/images/homepage-up.png)
-![homepage - lower part](./src/assets/images/homepage-down.png)
+![homepage - upper part](frontend/src/assets/images/homepage-up.png)
+![homepage - lower part](frontend/src/assets/images/homepage-down.png)
 
 ---
 
